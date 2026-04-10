@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Ku Dineout — Minis | Play & Win Rewards</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      background: #f5f5f5;
+      color: #1c1c1e;
+    }
+
+    .app-container {
+      max-width: 500px;
+      margin: 0 auto;
+      background: #ffffff;
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.03);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .app-header {
+      background: white;
+      padding: 14px 18px 10px 18px;
+      border-bottom: 1px solid #f0f0f0;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+
+    .logo-area {
+      display: flex;
+      align-items: baseline;
+      gap: 4px;
+    }
+
+    .logo-icon {
+      font-size: 26px;
+      font-weight: 800;
+      background: linear-gradient(135deg, #ff6e3a, #ff3d00);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .logo-text {
+      font-size: 20px;
+      font-weight: 800;
+      background: linear-gradient(135deg, #ff6e3a, #ff3d00);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      letter-spacing: -0.5px;
+    }
+
+    .action-icons {
+      display: flex;
+      gap: 20px;
+    }
+
+    .profile-link {
+      text-decoration: none;
+      color: inherit;
+      display: inline-block;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    .profile-link:active {
+      opacity: 0.6;
+    }
+
+    .location-card {
+      background: #f7f7f9;
+      border-radius: 30px;
+      padding: 8px 16px 8px 14px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      width: auto;
+      max-width: 100%;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .location-card:active {
+      background: #efefef;
+    }
+
+    .loc-pin {
+      font-size: 18px;
+    }
+
+    .loc-address {
+      font-size: 14px;
+      font-weight: 520;
+      color: #1a1a1a;
+      letter-spacing: -0.2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .setup-pill {
+      background: #ffede3;
+      color: #ff5e00;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 4px 8px;
+      border-radius: 40px;
+      margin-left: 4px;
+    }
+
+    .minis-hero {
+      background: linear-gradient(135deg, #0f2027 0%, #203a43 100%);
+      margin: 20px 20px 24px 20px;
+      border-radius: 36px;
+      padding: 32px 24px;
+      color: white;
+      text-align: center;
+      box-shadow: 0 20px 30px -12px rgba(0,0,0,0.35);
+      position: relative;
+      overflow: hidden;
+    }
+    .minis-badge {
+      background: linear-gradient(135deg, #f9d423, #ff4e50);
+      color: #1a0f2e;
+      font-weight: 800;
+      font-size: 12px;
+      display: inline-block;
+      padding: 5px 14px;
+      border-radius: 40px;
+      margin-bottom: 18px;
+      letter-spacing: 0.5px;
+    }
+    .minis-hero h1 {
+      font-size: 36px;
+      font-weight: 800;
+      margin-bottom: 12px;
+      line-height: 1.2;
+    }
+    .minis-hero h1 span {
+      background: linear-gradient(135deg, #f9d423, #ffb347);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .minis-hero p {
+      font-size: 14px;
+      line-height: 1.5;
+      color: #d4f5e0;
+      margin-bottom: 20px;
+    }
+    .minis-stats {
+      display: inline-flex;
+      align-items: center;
+      gap: 16px;
+      background: rgba(255,255,255,0.12);
+      backdrop-filter: blur(8px);
+      padding: 10px 20px;
+      border-radius: 60px;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    .games-section {
+      margin: 8px 20px 24px 20px;
+    }
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 16px;
+      padding: 0 4px;
+    }
+    .section-title {
+      font-size: 20px;
+      font-weight: 800;
+      color: #1a1a1a;
+    }
+    .section-link {
+      font-size: 12px;
+      color: #ff5e00;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    .games-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+    .game-card {
+      background: white;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.06);
+      border: 1px solid #f0eae4;
+      transition: transform 0.1s ease;
+      cursor: pointer;
+    }
+    .game-card:active {
+      transform: scale(0.98);
+    }
+    .game-img {
+      height: 130px;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .game-icon {
+      font-size: 56px;
+      background: rgba(255,255,255,0.9);
+      width: 70px;
+      height: 70px;
+      border-radius: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+    .game-info {
+      padding: 12px 12px 14px;
+      text-align: center;
+    }
+    .game-name {
+      font-weight: 800;
+      font-size: 15px;
+      margin-bottom: 4px;
+    }
+    .game-stats {
+      font-size: 11px;
+      color: #8e8e93;
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 8px;
+    }
+    .play-btn {
+      background: #ffede3;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 30px;
+      font-size: 12px;
+      font-weight: 700;
+      color: #ff5e00;
+      cursor: pointer;
+      width: 100%;
+    }
+    .play-btn:active {
+      background: #ff5e00;
+      color: white;
+    }
+
+    .featured-mini {
+      margin: 8px 20px 24px 20px;
+      background: linear-gradient(135deg, #fff9f5, #ffffff);
+      border-radius: 28px;
+      padding: 20px;
+      border: 2px solid #ffede3;
+      text-align: center;
+    }
+    .featured-title {
+      font-weight: 800;
+      font-size: 16px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    .scratch-card {
+      background: #ff5e00;
+      border-radius: 24px;
+      padding: 24px;
+      color: white;
+      cursor: pointer;
+      transition: all 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+    .scratch-card:active {
+      transform: scale(0.98);
+    }
+    .scratch-prize {
+      font-size: 28px;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+    .scratch-label {
+      font-size: 12px;
+      opacity: 0.9;
+    }
+    .scratch-revealed {
+      display: none;
+    }
+
+    .rewards-banner {
+      background: #fff9f5;
+      margin: 8px 20px 24px 20px;
+      border-radius: 28px;
+      padding: 18px 20px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      border-left: 5px solid #f9d423;
+    }
+    .rewards-icon {
+      font-size: 36px;
+    }
+    .rewards-text h4 {
+      font-weight: 800;
+      font-size: 16px;
+      margin-bottom: 4px;
+    }
+    .rewards-text p {
+      font-size: 12px;
+      color: #5e5e62;
+    }
+
+    /* Modal Form */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      backdrop-filter: blur(5px);
+      z-index: 2000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      visibility: hidden;
+      opacity: 0;
+      transition: visibility 0.2s, opacity 0.2s;
+    }
+    .modal-overlay.active {
+      visibility: visible;
+      opacity: 1;
+    }
+    .game-modal {
+      background: white;
+      width: 92%;
+      max-width: 440px;
+      border-radius: 40px;
+      padding: 28px 24px 32px;
+      box-shadow: 0 30px 40px rgba(0, 0, 0, 0.3);
+      position: relative;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+    .modal-header h3 {
+      font-size: 24px;
+      font-weight: 800;
+      background: linear-gradient(135deg, #ff6e3a, #ff3d00);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .close-modal {
+      background: #f0f0f0;
+      border: none;
+      font-size: 22px;
+      width: 36px;
+      height: 36px;
+      border-radius: 30px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: 0.2s;
+    }
+    .close-modal:active { background: #e0e0e0; }
+    .game-highlight {
+      background: #fff1e6;
+      padding: 14px 16px;
+      border-radius: 28px;
+      margin-bottom: 24px;
+      text-align: center;
+    }
+    .game-highlight .game-name-lg {
+      font-weight: 800;
+      font-size: 18px;
+      color: #ff5e00;
+    }
+    .game-highlight .game-reward-sm {
+      font-size: 12px;
+      color: #6c6c70;
+      margin-top: 4px;
+    }
+    .form-group {
+      margin-bottom: 20px;
+    }
+    .form-group label {
+      display: block;
+      font-weight: 600;
+      font-size: 14px;
+      margin-bottom: 8px;
+      color: #1c1c1e;
+    }
+    .form-group input {
+      width: 100%;
+      padding: 14px 16px;
+      border: 1.5px solid #e9e9ef;
+      border-radius: 28px;
+      font-size: 15px;
+      font-family: inherit;
+      background: #ffffff;
+      transition: 0.2s;
+    }
+    .form-group input:focus {
+      outline: none;
+      border-color: #ff5e00;
+      box-shadow: 0 0 0 3px rgba(255, 94, 0, 0.1);
+    }
+    .error-msg {
+      color: #e34d4d;
+      font-size: 11px;
+      margin-top: 6px;
+      margin-left: 12px;
+      font-weight: 500;
+    }
+    .submit-game {
+      background: #ff5e00;
+      border: none;
+      width: 100%;
+      padding: 14px;
+      border-radius: 44px;
+      color: white;
+      font-weight: 800;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.2s;
+      margin-top: 8px;
+    }
+    .submit-game:active { transform: scale(0.97); background: #e05200; }
+
+    .site-footer {
+      background: #121212;
+      color: #e5e5e5;
+      padding: 40px 24px 32px;
+      margin-top: 16px;
+      border-top: 1px solid #2a2a2a;
+      text-align: center;
+    }
+
+    .footer-inner {
+      max-width: 400px;
+      margin: 0 auto;
+    }
+
+    .footer-brand {
+      margin-bottom: 32px;
+    }
+
+    .footer-logo {
+      font-size: 28px;
+      font-weight: 800;
+      background: linear-gradient(135deg, #ff6e3a, #ff3d00);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      display: inline-block;
+      margin-bottom: 8px;
+    }
+
+    .footer-tagline {
+      font-size: 12px;
+      color: #888;
+      margin-top: 4px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 28px 24px;
+      margin-bottom: 36px;
+      text-align: left;
+    }
+
+    .footer-col h4 {
+      color: #ffffff;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 14px;
+    }
+
+    .footer-col ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .footer-col ul li {
+      margin-bottom: 10px;
+    }
+
+    .footer-col ul li a {
+      color: #aaa;
+      text-decoration: none;
+      font-size: 12px;
+      transition: color 0.2s;
+      cursor: pointer;
+    }
+
+    .footer-col ul li a:hover {
+      color: #ff6e3a;
+    }
+
+    .cities-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      margin: 20px 0 24px;
+      padding-top: 16px;
+      border-top: 1px solid #2a2a2a;
+    }
+
+    .city-badge {
+      background: #1f1f1f;
+      padding: 6px 14px;
+      border-radius: 40px;
+      font-size: 12px;
+      font-weight: 500;
+      color: #ddd;
+      cursor: pointer;
+    }
+
+    .legal-section {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+      margin: 20px 0 20px;
+      padding-top: 16px;
+      border-top: 1px solid #2a2a2a;
+      font-size: 11px;
+    }
+
+    .legal-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 18px;
+    }
+
+    .legal-links a {
+      color: #aaa;
+      text-decoration: none;
+      font-size: 11px;
+      cursor: pointer;
+    }
+
+    .social-icons {
+      display: flex;
+      gap: 20px;
+    }
+
+    .social-icons span {
+      font-size: 18px;
+      cursor: pointer;
+    }
+
+    .copyright {
+      font-size: 10px;
+      color: #6a6a6a;
+      text-align: center;
+      margin-top: 24px;
+      padding-top: 16px;
+      border-top: 1px solid #2a2a2a;
+    }
+
+    .copyright a {
+      color: #ff6e3a;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    @media (max-width: 480px) {
+      .footer-grid {
+        gap: 20px;
+      }
+      .legal-section {
+        flex-direction: column;
+        gap: 14px;
+      }
+      .games-grid {
+        gap: 12px;
+      }
+    }
+
+    .toast-message {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #1c1c1e;
+      color: white;
+      padding: 12px 20px;
+      border-radius: 40px;
+      font-size: 13px;
+      font-weight: 500;
+      z-index: 2100;
+      opacity: 0;
+      transition: 0.2s;
+      pointer-events: none;
+      text-align: center;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+      max-width: 90%;
+    }
+  </style>
+</head>
+<body>
+<div class="app-container">
+  <div class="app-header">
+    <div class="header-row">
+      <div class="logo-area"><span class="logo-icon">🍽️</span><span class="logo-text">Ku dineout</span></div>
+      <div class="action-icons"><a href="sign.html" class="profile-link" id="profileIconBtn">👤</a></div>
+    </div>
+    <div class="location-card" id="locationTrigger">
+      <span class="loc-pin">🎮</span>
+      <span class="loc-address" id="locationLabel">Ku Minis — Play & Earn</span>
+      <span class="setup-pill" id="locBadge">Rewards</span>
+    </div>
+  </div>
+
+  <div class="minis-hero">
+    <div class="minis-badge">🎮 Bite-sized Fun</div>
+    <h1>Ku <span>Minis</span></h1>
+    <p>Play quick games, win rewards, and earn discounts on your next dining experience!</p>
+    <div class="minis-stats"><span>🎯 12+ Games</span><span>🏆 5K+ Winners</span><span>🎁 Daily Rewards</span></div>
+  </div>
+
+  <div class="games-section">
+    <div class="section-header"><span class="section-title">🎮 Play & Win</span><span class="section-link" id="viewAllLink">View all →</span></div>
+    <div class="games-grid" id="gamesGrid"></div>
+  </div>
+
+  <div class="featured-mini">
+    <div class="featured-title"><span>🎁</span> Daily Scratch Card<span>✨</span></div>
+    <div id="scratchCard" class="scratch-card">
+      <div id="scratchUnrevealed"><div class="scratch-prize">✨ Tap to Scratch ✨</div><div class="scratch-label">Win up to ₹500 off!</div></div>
+      <div id="scratchRevealed" style="display: none;"><div class="scratch-prize" id="scratchPrizeAmount">🎉 You won! 🎉</div><div class="scratch-label" id="scratchPrizeDesc">Coupon code: KUMINI50</div></div>
+    </div>
+  </div>
+
+  <div class="rewards-banner">
+    <div class="rewards-icon">🏆</div>
+    <div class="rewards-text"><h4>Top Players This Week</h4><p>1st: Rohan S. (2,450 pts) • 2nd: Priya M. (2,120 pts) • 3rd: Aditya K. (1,980 pts)</p></div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-brand"><div class="footer-logo">🍽️ Ku dineout</div><div class="footer-tagline">Good food, good times</div></div>
+      <div class="footer-grid">
+        <div class="footer-col"><h4>Company</h4><ul><li><a href="about.html">About Ku</a></li><li><a href="careers.html">Careers</a></li><li><a href="team.html">Team</a></li><li><a href="news.html">News</a></li></ul></div>
+        <div class="footer-col"><h4>Contact us</h4><ul><li><a href="help.html">Help & Support</a></li><li><a href="partner.html">Partner with us</a></li><li><a href="ride.html">Ride with us</a></li></ul></div>
+        <div class="footer-col"><h4>Available in:</h4><ul><li><a href="bangalore.html">Bangalore</a></li><li><a href="gurgaon.html">Gurgaon</a></li><li><a href="hyderabad.html">Hyderabad</a></li><li><a href="delhi.html">Delhi</a></li><li><a href="mumbai.html">Mumbai</a></li><li><a href="pune.html">Pune</a></li></ul></div>
+        <div class="footer-col"><h4>Explore with Ku</h4><ul><li><a href="kuone.html">Ku One</a></li><li><a href="kuinsta.html">Ku Instamart</a></li><li><a href="index.html">Ku Dineout</a></li><li><a href="kugenie.html">Ku Genie</a></li><li><a href="minis.html">Minis</a></li><li><a href="pyng.html">Pyng</a></li><li><a href="snackables.html">Snackables</a></li></ul></div>
+      </div>
+      <div class="cities-row"><span class="city-badge">47 cities</span><span class="city-badge">Life at Ku</span><span class="city-badge">Corporate</span></div>
+      <div class="legal-section"><div class="legal-links"><a href="#">Terms & Conditions</a><a href="#">Cookie Policy</a><a href="#">Privacy Policy</a></div><div class="social-icons"><span>📘</span><span>🐦</span><span>📸</span><span>🔗</span></div></div>
+      <div class="copyright">© 2026 Ku Dineout Limited. All rights reserved. <a href="#">Legal</a></div>
+    </div>
+  </footer>
+</div>
+
+<!-- Game Registration Modal -->
+<div id="gameModal" class="modal-overlay">
+  <div class="game-modal">
+    <div class="modal-header"><h3>🎮 Start Playing</h3><button class="close-modal" id="closeModalBtn">✕</button></div>
+    <div id="modalGameInfo" class="game-highlight"><div class="game-name-lg">Food Match</div><div class="game-reward-sm">🎁 Prize: ₹50 off</div></div>
+    <form id="gameForm">
+      <div class="form-group"><label>Full Name *</label><input type="text" id="fullName" placeholder="Enter your full name" autocomplete="off"><div class="error-msg" id="nameError"></div></div>
+      <div class="form-group"><label>Mobile Number *</label><input type="tel" id="mobile" placeholder="10-digit mobile number" maxlength="10" autocomplete="off"><div class="error-msg" id="mobileError"></div></div>
+      <div class="form-group"><label>Email Address *</label><input type="email" id="email" placeholder="you@gmail.com" autocomplete="off"><div class="error-msg" id="emailError"></div></div>
+      <button type="submit" class="submit-game">Start Game →</button>
+    </form>
+  </div>
+</div>
+
+<div id="globalToast" class="toast-message">🎮 Game loaded! Have fun!</div>
+
+<script>
+  const games = [
+    { id: 1, name: "Food Match", icon: "🍕", players: "2.3k", reward: "₹50 off", bgColor: "#ffede3" },
+    { id: 2, name: "Spin & Win", icon: "🎡", players: "5.1k", reward: "Free Dessert", bgColor: "#e3f5ff" },
+    { id: 3, name: "Memory Chef", icon: "🧠", players: "1.8k", reward: "₹100 off", bgColor: "#ffe3f0" },
+    { id: 4, name: "Trivia Bites", icon: "❓", players: "3.2k", reward: "Coupon Code", bgColor: "#e3ffe6" }
+  ];
+
+  let currentSelectedGame = { name: "Food Match", reward: "₹50 off" };
+
+  function renderGames() {
+    const container = document.getElementById("gamesGrid");
+    if (!container) return;
+    container.innerHTML = games.map(game => `<div class="game-card" data-id="${game.id}"><div class="game-img" style="background: ${game.bgColor};"><div class="game-icon">${game.icon}</div></div><div class="game-info"><div class="game-name">${game.name}</div><div class="game-stats"><span>👥 ${game.players}</span><span>🎁 ${game.reward}</span></div><button class="play-btn" data-id="${game.id}" data-name="${game.name}" data-reward="${game.reward}">Play Now →</button></div></div>`).join('');
+    document.querySelectorAll('.play-btn').forEach(btn => { btn.addEventListener('click', (e) => { e.stopPropagation(); const gameName = btn.getAttribute('data-name'); const gameReward = btn.getAttribute('data-reward'); currentSelectedGame = { name: gameName, reward: gameReward }; openGameModal(gameName, gameReward); }); });
+    document.querySelectorAll('.game-card').forEach(card => { card.addEventListener('click', (e) => { if (e.target.classList.contains('play-btn')) return; const btn = card.querySelector('.play-btn'); if (btn) btn.click(); }); });
+  }
+
+  // Modal Logic
+  const modal = document.getElementById("gameModal");
+  const modalGameInfo = document.getElementById("modalGameInfo");
+  const closeModalBtn = document.getElementById("closeModalBtn");
+  const gameForm = document.getElementById("gameForm");
+
+  function openGameModal(gameName, gameReward) {
+    modalGameInfo.innerHTML = `<div class="game-name-lg">${gameName}</div><div class="game-reward-sm">🎁 Prize: ${gameReward}</div>`;
+    document.getElementById("fullName").value = "";
+    document.getElementById("mobile").value = "";
+    document.getElementById("email").value = "";
+    document.getElementById("nameError").innerText = "";
+    document.getElementById("mobileError").innerText = "";
+    document.getElementById("emailError").innerText = "";
+    modal.classList.add("active");
+  }
+
+  function closeModal() { modal.classList.remove("active"); }
+
+  function validateForm() {
+    let isValid = true;
+    const fullName = document.getElementById("fullName").value;
+    const mobile = document.getElementById("mobile").value;
+    const email = document.getElementById("email").value;
+
+    if (fullName.startsWith(' ')) { document.getElementById("nameError").innerText = "❌ Name cannot start with space"; isValid = false; }
+    else if (fullName.trim() === "") { document.getElementById("nameError").innerText = "Full name is required"; isValid = false; }
+    else { const nameRegex = /^[A-Za-z\s\.]+$/; if (!nameRegex.test(fullName)) { document.getElementById("nameError").innerText = "❌ Only letters and spaces allowed"; isValid = false; } else { document.getElementById("nameError").innerText = ""; } }
+
+    if (mobile.startsWith(' ')) { document.getElementById("mobileError").innerText = "❌ Mobile cannot start with space"; isValid = false; }
+    else if (mobile.length === 0) { document.getElementById("mobileError").innerText = "Mobile number required"; isValid = false; }
+    else { const mobileRegex = /^[6-9][0-9]{9}$/; if (!mobileRegex.test(mobile)) { document.getElementById("mobileError").innerText = "❌ Must start with 6-9 and be 10 digits"; isValid = false; } else { document.getElementById("mobileError").innerText = ""; } }
+
+    if (email.startsWith(' ')) { document.getElementById("emailError").innerText = "❌ Email cannot start with space"; isValid = false; }
+    else if (email.trim() === "") { document.getElementById("emailError").innerText = "Email required"; isValid = false; }
+    else { const lowerEmail = email.toLowerCase(); if (!lowerEmail.endsWith("@gmail.com")) { document.getElementById("emailError").innerText = "❌ Email must end with @gmail.com"; isValid = false; } else { document.getElementById("emailError").innerText = ""; } }
+    return isValid;
+  }
+
+  function handleFormSubmit(e) {
+    e.preventDefault();
+    if (!validateForm()) return;
+    const name = document.getElementById("fullName").value.trim();
+    const email = document.getElementById("email").value.trim().toLowerCase();
+    showMessage(`🎮 Starting "${currentSelectedGame.name}"! Good luck, ${name.split(' ')[0]}! You can win ${currentSelectedGame.reward}`, 3000);
+    closeModal();
+    setTimeout(() => { showMessage(`✨ Great effort! You earned 50 Ku Coins. Keep playing!`, 2500); }, 3000);
+    gameForm.reset();
+  }
+
+  closeModalBtn?.addEventListener("click", closeModal);
+  modal?.addEventListener("click", (e) => { if (e.target === modal) closeModal(); });
+  gameForm?.addEventListener("submit", handleFormSubmit);
+
+  function setupInputFilters() {
+    const nameInput = document.getElementById("fullName");
+    const mobileInput = document.getElementById("mobile");
+    const emailInput = document.getElementById("email");
+    nameInput?.addEventListener("input", function() { if (this.value.startsWith(' ')) this.value = this.value.trimStart(); });
+    mobileInput?.addEventListener("input", function() { if (this.value.startsWith(' ')) this.value = this.value.trimStart(); this.value = this.value.replace(/[^0-9]/g, '').slice(0, 10); });
+    emailInput?.addEventListener("input", function() { if (this.value.startsWith(' ')) this.value = this.value.trimStart(); });
+  }
+  setupInputFilters();
+
+  // Scratch Card Logic
+  let scratchRevealed = false;
+  const scratchCard = document.getElementById("scratchCard");
+  const scratchUnrevealed = document.getElementById("scratchUnrevealed");
+  const scratchRevealedDiv = document.getElementById("scratchRevealed");
+  const scratchPrizeAmount = document.getElementById("scratchPrizeAmount");
+  const scratchPrizeDesc = document.getElementById("scratchPrizeDesc");
+
+  const prizes = [{ amount: "🎉 ₹500 OFF! 🎉", desc: "Coupon: KU500MAX • Min order ₹1500" }, { amount: "🎉 ₹200 OFF! 🎉", desc: "Coupon: KU200EAT • Min order ₹800" }, { amount: "🎉 Free Dessert! 🎉", desc: "Coupon: SWEETKU • On any meal" }, { amount: "🎉 ₹100 OFF! 🎉", desc: "Coupon: KUMINI100 • Min order ₹500" }, { amount: "🎉 20% OFF! 🎉", desc: "Coupon: KU20SAVE • Max discount ₹300" }];
+  function getRandomPrize() { return prizes[Math.floor(Math.random() * prizes.length)]; }
+  function handleScratch() {
+    if (scratchRevealed) { showMessage("🎁 You've already scratched today! Come back tomorrow for more rewards.", 2000); return; }
+    const prize = getRandomPrize();
+    scratchPrizeAmount.innerText = prize.amount;
+    scratchPrizeDesc.innerText = prize.desc;
+    scratchUnrevealed.style.display = "none";
+    scratchRevealedDiv.style.display = "block";
+    scratchRevealed = true;
+    showMessage(`✨ Congratulations! You won ${prize.amount}`, 3000);
+    localStorage.setItem('kuScratchDate', new Date().toDateString());
+    localStorage.setItem('kuScratchPrize', prize.desc);
+  }
+  function checkDailyScratch() {
+    const lastScratch = localStorage.getItem('kuScratchDate');
+    const today = new Date().toDateString();
+    if (lastScratch === today) {
+      const savedPrize = localStorage.getItem('kuScratchPrize') || "a reward";
+      scratchRevealed = true;
+      scratchUnrevealed.style.display = "none";
+      scratchRevealedDiv.style.display = "block";
+      scratchPrizeDesc.innerText = savedPrize;
+      scratchPrizeAmount.innerText = "🎉 Already Claimed! 🎉";
+    }
+  }
+  scratchCard.addEventListener("click", handleScratch);
+
+  let toastTimeout = null;
+  function showMessage(text, duration = 2600) {
+    const toast = document.getElementById("globalToast");
+    toast.innerText = text;
+    toast.style.opacity = "1";
+    if (toastTimeout) clearTimeout(toastTimeout);
+    toastTimeout = setTimeout(() => { toast.style.opacity = "0"; }, duration);
+  }
+
+  const locationTrigger = document.getElementById("locationTrigger");
+  function handleLocationClick() { showMessage("🎮 Play Minis to earn rewards that work across all Ku Dineout services!", 2000); }
+  locationTrigger.addEventListener("click", handleLocationClick);
+
+  const viewAllLink = document.getElementById("viewAllLink");
+  if (viewAllLink) { viewAllLink.addEventListener("click", (e) => { e.preventDefault(); showMessage("🎮 12+ exciting mini games coming soon! Play, compete, and win big!", 2000); }); }
+
+  document.getElementById("profileIconBtn")?.addEventListener("click", (e) => { e.preventDefault(); window.location.href = "sign.html"; });
+
+  document.querySelectorAll('.footer-col a, .legal-links a, .city-badge, .social-icons span, .copyright a').forEach(el => {
+    el.addEventListener('click', (e) => {
+      const href = el.getAttribute('href');
+      if (href && href !== '#' && href !== 'javascript:void(0)' && !href.startsWith('javascript')) {
+        if (href === 'minis.html') { e.preventDefault(); showMessage("🎮 You're already on Ku Minis — play & earn!", 1200); return; }
+        return;
+      }
+      e.preventDefault();
+      showMessage(`✨ ${el.innerText.trim()} — coming soon`, 1200);
+    });
+  });
+
+  renderGames();
+  checkDailyScratch();
+  showMessage("🎮 Welcome to Ku Minis! Play games, win rewards, and save on dining!", 3000);
+</script>
+</body>
+</html>

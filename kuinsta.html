@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Ku Dineout — Ku Instamart | Instant Grocery Delivery</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      background: #f5f5f5;
+      color: #1c1c1e;
+    }
+
+    .app-container {
+      max-width: 500px;
+      margin: 0 auto;
+      background: #ffffff;
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.03);
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Header */
+    .app-header {
+      background: white;
+      padding: 14px 18px 10px 18px;
+      border-bottom: 1px solid #f0f0f0;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+
+    .logo-area {
+      display: flex;
+      align-items: baseline;
+      gap: 4px;
+    }
+
+    .logo-icon {
+      font-size: 26px;
+      font-weight: 800;
+      background: linear-gradient(135deg, #ff6e3a, #ff3d00);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .logo-text {
+      font-size: 20px;
+      font-weight: 800;
+      background: linear-gradient(135deg, #ff6e3a, #ff3d00);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      letter-spacing: -0.5px;
+    }
+
+    .action-icons {
+      display: flex;
+      gap: 20px;
+    }
+
+    .action-icons span {
+      font-size: 22px;
+      font-weight: 500;
+    }
+
+    .profile-link {
+      text-decoration: none;
+      color: inherit;
+      display: inline-block;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    .profile-link:active {
+      opacity: 0.6;
+    }
+
+    .location-card {
+      background: #f7f7f9;
+      border-radius: 30px;
+      padding: 8px 16px 8px 14px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      width: auto;
+      max-width: 100%;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .location-card:active {
+      background: #efefef;
+    }
+
+    .loc-pin {
+      font-size: 18px;
+    }
+
+    .loc-address {
+      font-size: 14px;
+      font-weight: 520;
+      color: #1a1a1a;
+      letter-spacing: -0.2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .setup-pill {
+      background: #ffede3;
+      color: #ff5e00;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 4px 8px;
+      border-radius: 40px;
+      margin-left: 4px;
+    }
+
+    /* Ku Instamart Hero */
+    .instamart-hero {
+      background: linear-gradient(135deg, #0f2b1d 0%, #1a3a2a 100%);
+      margin: 20px 20px 24px 20px;
+      border-radius: 36px;
+      padding: 32px 24px;
+      color: white;
+      text-align: center;
+      box-shadow: 0 20px 30px -12px rgba(0,0,0,0.35);
+      position: relative;
+      overflow: hidden;
+    }
+    .instamart-badge {
+      background: linear-gradient(135deg, #a8e6cf, #56ab2f);
+      color: #0a2e1a;
+      font-weight: 800;
+      font-size: 12px;
+      display: inline-block;
+      padding: 5px 14px;
+      border-radius: 40px;
+      margin-bottom: 18px;
+      letter-spacing: 0.5px;
+    }
+    .instamart-hero h1 {
+      font-size: 36px;
+      font-weight: 800;
+      margin-bottom: 12px;
+      line-height: 1.2;
+    }
+    .instamart-hero h1 span {
+      background: linear-gradient(135deg, #a8e6cf, #56ab2f);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .instamart-hero p {
+      font-size: 14px;
+      line-height: 1.5;
+      color: #d4f5e0;
+      margin-bottom: 20px;
+    }
+    .delivery-promise {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(255,255,255,0.12);
+      backdrop-filter: blur(8px);
+      padding: 10px 20px;
+      border-radius: 60px;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    /* Category Pills */
+    .categories-section {
+      margin: 0 20px 20px 20px;
+      overflow-x: auto;
+      white-space: nowrap;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+    }
+    .categories-section::-webkit-scrollbar {
+      display: none;
+    }
+    .category-pills {
+      display: inline-flex;
+      gap: 12px;
+      padding: 4px 0;
+    }
+    .category-pill {
+      background: #f2f2f6;
+      padding: 8px 18px;
+      border-radius: 40px;
+      font-size: 13px;
+      font-weight: 600;
+      color: #1c1c1e;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .category-pill.active {
+      background: #ff5e00;
+      color: white;
+    }
+    .category-pill:active {
+      transform: scale(0.96);
+    }
+
+    /* Featured Products */
+    .featured-section {
+      margin: 8px 20px 20px 20px;
+    }
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 16px;
+      padding: 0 4px;
+    }
+    .section-title {
+      font-size: 20px;
+      font-weight: 800;
+      color: #1a1a1a;
+    }
+    .section-link {
+      font-size: 12px;
+      color: #ff5e00;
+      font-weight: 600;
+      text-decoration: none;
+    }
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+    .product-card {
+      background: white;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 6px 14px rgba(0, 0, 0, 0.06);
+      border: 1px solid #f0eae4;
+      transition: transform 0.1s ease;
+      cursor: pointer;
+    }
+    .product-card:active {
+      transform: scale(0.98);
+    }
+    .product-img {
+      height: 130px;
+      background-size: cover;
+      background-position: center;
+      position: relative;
+    }
+    .product-offer {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      background: #ff5e00;
+      color: white;
+      font-size: 10px;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 20px;
+    }
+    .product-info {
+      padding: 12px 12px 14px;
+    }
+    .product-name {
+      font-weight: 800;
+      font-size: 14px;
+      margin-bottom: 4px;
+    }
+    .product-weight {
+      font-size: 10px;
+      color: #8e8e93;
+      margin-bottom: 8px;
+    }
+    .product-price-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .product-price {
+      font-weight: 800;
+      font-size: 16px;
+      color: #ff5e00;
+    }
+    .product-mrp {
+      font-size: 11px;
+      color: #8e8e93;
+      text-decoration: line-through;
+      margin-left: 6px;
+    }
+    .add-btn {
+      background: #ffede3;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 30px;
+      font-size: 12px;
+      font-weight: 700;
+      color: #ff5e00;
+      cursor: pointer;
+    }
+    .add-btn:active {
+      background: #ff5e00;
+      color: white;
+    }
+
+    /* Quick Delivery Banner */
+    .quick-banner {
+      background: #fff9f5;
+      margin: 8px 20px 24px 20px;
+      border-radius: 28px;
+      padding: 18px 20px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      border-left: 5px solid #56ab2f;
+    }
+    .banner-icon {
+      font-size: 36px;
+    }
+    .banner-text h4 {
+      font-weight: 800;
+      font-size: 16px;
+      margin-bottom: 4px;
+    }
+    .banner-text p {
+      font-size: 12px;
+      color: #5e5e62;
+    }
+
+    /* Footer */
+    .site-footer {
+      background: #121212;
+      color: #e5e5e5;
+      padding: 40px 24px 32px;
+      margin-top: 16px;
+      border-top: 1px solid #2a2a2a;
+      text-align: center;
+    }
+
+    .footer-inner {
+      max-width: 400px;
+      margin: 0 auto;
+    }
+
+    .footer-brand {
+      margin-bottom: 32px;
+    }
+
+    .footer-logo {
+      font-size: 28px;
+      font-weight: 800;
+      background: linear-gradient(135deg, #ff6e3a, #ff3d00);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      display: inline-block;
+      margin-bottom: 8px;
+    }
+
+    .footer-tagline {
+      font-size: 12px;
+      color: #888;
+      margin-top: 4px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 28px 24px;
+      margin-bottom: 36px;
+      text-align: left;
+    }
+
+    .footer-col h4 {
+      color: #ffffff;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 14px;
+    }
+
+    .footer-col ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .footer-col ul li {
+      margin-bottom: 10px;
+    }
+
+    .footer-col ul li a {
+      color: #aaa;
+      text-decoration: none;
+      font-size: 12px;
+      transition: color 0.2s;
+    }
+
+    .footer-col ul li a:hover {
+      color: #ff6e3a;
+    }
+
+    .cities-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      margin: 20px 0 24px;
+      padding-top: 16px;
+      border-top: 1px solid #2a2a2a;
+    }
+
+    .city-badge {
+      background: #1f1f1f;
+      padding: 6px 14px;
+      border-radius: 40px;
+      font-size: 12px;
+      font-weight: 500;
+      color: #ddd;
+      cursor: pointer;
+    }
+
+    .legal-section {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+      margin: 20px 0 20px;
+      padding-top: 16px;
+      border-top: 1px solid #2a2a2a;
+      font-size: 11px;
+    }
+
+    .legal-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 18px;
+    }
+
+    .legal-links a {
+      color: #aaa;
+      text-decoration: none;
+      font-size: 11px;
+      cursor: pointer;
+    }
+
+    .social-icons {
+      display: flex;
+      gap: 20px;
+    }
+
+    .social-icons span {
+      font-size: 18px;
+      cursor: pointer;
+    }
+
+    .copyright {
+      font-size: 10px;
+      color: #6a6a6a;
+      text-align: center;
+      margin-top: 24px;
+      padding-top: 16px;
+      border-top: 1px solid #2a2a2a;
+    }
+
+    .copyright a {
+      color: #ff6e3a;
+      text-decoration: none;
+    }
+
+    @media (max-width: 480px) {
+      .footer-grid {
+        gap: 20px;
+      }
+      .legal-section {
+        flex-direction: column;
+        gap: 14px;
+      }
+      .products-grid {
+        gap: 12px;
+      }
+    }
+
+    .toast-message {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #1c1c1e;
+      color: white;
+      padding: 12px 20px;
+      border-radius: 40px;
+      font-size: 13px;
+      font-weight: 500;
+      z-index: 1100;
+      opacity: 0;
+      transition: 0.2s;
+      pointer-events: none;
+      text-align: center;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+      max-width: 90%;
+    }
+  </style>
+</head>
+<body>
+<div class="app-container">
+  <!-- Header identical to original -->
+  <div class="app-header">
+    <div class="header-row">
+      <div class="logo-area">
+        <span class="logo-icon">🍽️</span>
+        <span class="logo-text">Ku dineout</span>
+      </div>
+      <div class="action-icons">
+        <a href="sign.html" class="profile-link" id="profileIconBtn">👤</a>
+      </div>
+    </div>
+    <div class="location-card" id="locationTrigger">
+      <span class="loc-pin">📦</span>
+      <span class="loc-address" id="locationLabel">Delivering to: Home</span>
+      <span class="setup-pill" id="locBadge">Change</span>
+    </div>
+  </div>
+
+  <!-- Ku Instamart Hero -->
+  <div class="instamart-hero">
+    <div class="instamart-badge">⚡ Delivered in 10 minutes</div>
+    <h1>Ku <span>Instamart</span></h1>
+    <p>Groceries, snacks, essentials — delivered to your doorstep in lightning speed.</p>
+    <div class="delivery-promise">
+      <span>🚚</span> Free delivery above ₹99
+      <span>⏱️</span> 10 min guarantee
+    </div>
+  </div>
+
+  <!-- Category Pills -->
+  <div class="categories-section">
+    <div class="category-pills" id="categoryPills">
+      <div class="category-pill active" data-cat="all">🍕 All</div>
+      <div class="category-pill" data-cat="snacks">🍿 Snacks</div>
+      <div class="category-pill" data-cat="beverages">🥤 Beverages</div>
+      <div class="category-pill" data-cat="essentials">🧴 Essentials</div>
+      <div class="category-pill" data-cat="fresh">🥬 Fresh</div>
+      <div class="category-pill" data-cat="bakery">🥐 Bakery</div>
+    </div>
+  </div>
+
+  <!-- Featured Products -->
+  <div class="featured-section">
+    <div class="section-header">
+      <span class="section-title">🔥 Trending now</span>
+      <a href="#" class="section-link" id="viewAllLink">View all →</a>
+    </div>
+    <div class="products-grid" id="productsGrid">
+      <!-- JS will inject dynamic content -->
+    </div>
+  </div>
+
+  <!-- Quick Delivery Banner -->
+  <div class="quick-banner">
+    <div class="banner-icon">⏱️🚚</div>
+    <div class="banner-text">
+      <h4>Why wait? Get it now!</h4>
+      <p>Order before 11 PM for same-day delivery. 1000+ products in stock.</p>
+    </div>
+  </div>
+
+  <!-- Footer exact same -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-logo">🍽️ Ku dineout</div>
+        <div class="footer-tagline">Good food, good times</div>
+      </div>
+      <div class="footer-grid">
+        <div class="footer-col">
+          <h4>Company</h4>
+          <ul>
+            <li><a href="about.html">About Ku</a></li>
+            <li><a href="careers.html">Careers</a></li>
+            <li><a href="team.html">Team</a></li>
+            <li><a href="news.html">News</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contact us</h4>
+          <ul>
+            <li><a href="help.html">Help & Support</a></li>
+            <li><a href="partner.html">Partner with us</a></li>
+            <li><a href="ride.html">Ride with us</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Available in:</h4>
+          <ul>
+            <li><a href="bangalore.html">Bangalore</a></li>
+            <li><a href="gurgaon.html">Gurgaon</a></li>
+            <li><a href="hyderabad.html">Hyderabad</a></li>
+            <li><a href="delhi.html">Delhi</a></li>
+            <li><a href="mumbai.html">Mumbai</a></li>
+            <li><a href="pune.html">Pune</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Explore with Ku</h4>
+          <ul>
+            <li><a href="kuone.html">Ku One</a></li>
+            <li><a href="kuinsta.html">Ku Instamart</a></li>
+            <li><a href="index.html">Ku Dineout</a></li>
+            <li><a href="kugenie.html">Ku Genie</a></li>
+            <li><a href="minis.html">Minis</a></li>
+            <li><a href="pyng.html">Pyng</a></li>
+            <li><a href="snackables.html">Snackables</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="cities-row">
+        <span class="city-badge">47 cities</span>
+        <span class="city-badge">Life at Ku</span>
+        <span class="city-badge">Corporate</span>
+      </div>
+      <div class="legal-section">
+        <div class="legal-links">
+          <a href="#">Terms & Conditions</a>
+          <a href="#">Cookie Policy</a>
+          <a href="#">Privacy Policy</a>
+        </div>
+        <div class="social-icons">
+          <span>📘</span><span>🐦</span><span>📸</span><span>🔗</span>
+        </div>
+      </div>
+      <div class="copyright">
+        © 2026 Ku Dineout Limited. All rights reserved. <a href="#">Legal</a>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<div id="globalToast" class="toast-message">🛒 Added to cart!</div>
+
+<script>
+  // Product data
+  const products = [
+    { id: 1, name: "Lays Classic Salted", category: "snacks", weight: "52g", price: 20, mrp: 25, img: "https://images.unsplash.com/photo-1566478989037-eec170784d0b?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80", offer: "20% off" },
+    { id: 2, name: "Coca-Cola", category: "beverages", weight: "500ml", price: 35, mrp: 45, img: "https://images.unsplash.com/photo-1554866585-cd94860790a1?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80", offer: "Save ₹10" },
+    { id: 3, name: "Dove Body Wash", category: "essentials", weight: "250ml", price: 199, mrp: 250, img: "https://images.unsplash.com/photo-1556228578-0d85b1a4d571?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80", offer: "20% off" },
+    { id: 4, name: "Organic Apples", category: "fresh", weight: "1kg", price: 120, mrp: 150, img: "https://images.unsplash.com/photo-1568702846914-96b305d2aaeb?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80", offer: "Fresh" },
+    { id: 5, name: "Britannia Bourbon", category: "snacks", weight: "75g", price: 30, mrp: 40, img: "https://images.unsplash.com/photo-1580582932707-520aed937b7b?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80", offer: "25% off" },
+    { id: 6, name: "Amul Butter", category: "bakery", weight: "100g", price: 45, mrp: 55, img: "https://images.unsplash.com/photo-1589985270826-4b7bb135bc9d?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80", offer: "Save ₹10" },
+    { id: 7, name: "Red Bull", category: "beverages", weight: "250ml", price: 85, mrp: 110, img: "https://images.unsplash.com/photo-1561758033-d89a9ad46330?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80", offer: "Energy" },
+    { id: 8, name: "Pasta - Penne", category: "essentials", weight: "500g", price: 89, mrp: 120, img: "https://images.unsplash.com/photo-1551183053-bf91a1d81141?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80", offer: "26% off" }
+  ];
+
+  let currentCategory = "all";
+
+  function renderProducts() {
+    const container = document.getElementById("productsGrid");
+    if (!container) return;
+    
+    const filteredProducts = currentCategory === "all" 
+      ? products 
+      : products.filter(p => p.category === currentCategory);
+    
+    container.innerHTML = filteredProducts.map(product => `
+      <div class="product-card" data-id="${product.id}">
+        <div class="product-img" style="background-image: url('${product.img}');">
+          <span class="product-offer">${product.offer}</span>
+        </div>
+        <div class="product-info">
+          <div class="product-name">${product.name}</div>
+          <div class="product-weight">${product.weight}</div>
+          <div class="product-price-row">
+            <div>
+              <span class="product-price">₹${product.price}</span>
+              <span class="product-mrp">₹${product.mrp}</span>
+            </div>
+            <button class="add-btn" data-id="${product.id}" data-name="${product.name}" data-price="${product.price}">Add +</button>
+          </div>
+        </div>
+      </div>
+    `).join('');
+
+    // Add event listeners to "Add" buttons
+    document.querySelectorAll('.add-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const name = btn.getAttribute('data-name');
+        const price = btn.getAttribute('data-price');
+        showMessage(`🛒 ${name} added to cart · ₹${price}`, 1800);
+      });
+    });
+
+    // Add click to product cards
+    document.querySelectorAll('.product-card').forEach(card => {
+      card.addEventListener('click', (e) => {
+        if (e.target.classList.contains('add-btn')) return;
+        const id = card.getAttribute('data-id');
+        const product = products.find(p => p.id == id);
+        if (product) {
+          showMessage(`📦 ${product.name} — Quick view: ₹${product.price}`, 2000);
+        }
+      });
+    });
+  }
+
+  // Category filtering
+  function setupCategories() {
+    const pills = document.querySelectorAll('.category-pill');
+    pills.forEach(pill => {
+      pill.addEventListener('click', () => {
+        pills.forEach(p => p.classList.remove('active'));
+        pill.classList.add('active');
+        currentCategory = pill.getAttribute('data-cat');
+        renderProducts();
+      });
+    });
+  }
+
+  // Toast system
+  let toastTimeout = null;
+  function showMessage(text, duration = 2600) {
+    const toast = document.getElementById("globalToast");
+    toast.innerText = text;
+    toast.style.opacity = "1";
+    if (toastTimeout) clearTimeout(toastTimeout);
+    toastTimeout = setTimeout(() => { toast.style.opacity = "0"; }, duration);
+  }
+
+  // Location change interaction
+  const locationTrigger = document.getElementById("locationTrigger");
+  const locationLabel = document.getElementById("locationLabel");
+  const locBadge = document.getElementById("locBadge");
+
+  function changeLocation() {
+    let newAddress = prompt("Enter your delivery address:", "Home - 123, MG Road");
+    if (newAddress && newAddress.trim()) {
+      locationLabel.innerText = `Delivering to: ${newAddress.trim().substring(0, 25)}`;
+      locBadge.innerText = "✓";
+      showMessage(`📍 Delivery address updated to ${newAddress.trim()}`, 2000);
+    } else {
+      locationLabel.innerText = "Delivering to: Home";
+      locBadge.innerText = "Change";
+    }
+  }
+  locationTrigger.addEventListener("click", changeLocation);
+
+  // View all link
+  const viewAllLink = document.getElementById("viewAllLink");
+  if (viewAllLink) {
+    viewAllLink.addEventListener("click", (e) => {
+      e.preventDefault();
+      showMessage("🌟 Explore 1000+ products on Ku Instamart — all at best prices!", 2000);
+    });
+  }
+
+  // Profile nav
+  const profileIcon = document.getElementById("profileIconBtn");
+  if (profileIcon) {
+    profileIcon.addEventListener("click", (e) => { /* sign.html */ });
+  }
+
+  // Footer interactions (same as original)
+  document.querySelectorAll('.footer-col a, .legal-links a, .city-badge, .social-icons span').forEach(el => {
+    el.addEventListener('click', (e) => {
+      const href = el.getAttribute('href');
+      if (href && href !== '#' && href !== 'javascript:void(0)' && !href.startsWith('javascript')) {
+        if (href === 'kuinsta.html') {
+          e.preventDefault();
+          showMessage("📦 You're already on Ku Instamart", 1200);
+          return;
+        }
+        return;
+      }
+      e.preventDefault();
+      showMessage(`✨ ${el.innerText.trim()} — coming soon`, 1200);
+    });
+  });
+
+  // Initial Render
+  renderProducts();
+  setupCategories();
+  showMessage("⚡ Ku Instamart — groceries delivered in 10 minutes!", 2800);
+</script>
+</body>
+</html>

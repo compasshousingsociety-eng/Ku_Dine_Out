@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Ku Dineout — Ride with Us</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      background: #f5f5f5;
+      color: #1c1c1e;
+    }
+
+    .app-container {
+      max-width: 500px;
+      margin: 0 auto;
+      background: #ffffff;
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.03);
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Header (matching original) */
+    .app-header {
+      background: white;
+      padding: 14px 18px 10px 18px;
+      border-bottom: 1px solid #f0f0f0;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+
+    .logo-area {
+      display: flex;
+      align-items: baseline;
+      gap: 4px;
+    }
+
+    .logo-icon {
+      font-size: 26px;
+      font-weight: 800;
+      background: linear-gradient(135deg, #ff6e3a, #ff3d00);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .logo-text {
+      font-size: 20px;
+      font-weight: 800;
+      background: linear-gradient(135deg, #ff6e3a, #ff3d00);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      letter-spacing: -0.5px;
+    }
+
+    .action-icons {
+      display: flex;
+      gap: 20px;
+    }
+
+    .action-icons span {
+      font-size: 22px;
+      font-weight: 500;
+    }
+
+    .profile-link {
+      text-decoration: none;
+      color: inherit;
+      display: inline-block;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    .profile-link:active {
+      opacity: 0.6;
+    }
+
+    .location-card {
+      background: #f7f7f9;
+      border-radius: 30px;
+      padding: 8px 16px 8px 14px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      width: auto;
+      max-width: 100%;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .location-card:active {
+      background: #efefef;
+    }
+
+    .loc-pin {
+      font-size: 18px;
+    }
+
+    .loc-address {
+      font-size: 14px;
+      font-weight: 520;
+      color: #1a1a1a;
+      letter-spacing: -0.2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .setup-pill {
+      background: #ffede3;
+      color: #ff5e00;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 4px 8px;
+      border-radius: 40px;
+      margin-left: 4px;
+    }
+
+    /* Ride Hero Section */
+    .ride-hero {
+      background: linear-gradient(145deg, #101214 0%, #1e1b17 100%);
+      margin: 20px 20px 24px 20px;
+      border-radius: 36px;
+      padding: 32px 24px;
+      color: white;
+      text-align: center;
+      box-shadow: 0 20px 30px -12px rgba(0,0,0,0.35);
+      position: relative;
+      overflow: hidden;
+    }
+    .ride-badge {
+      background: #ffb347;
+      color: #1f1a12;
+      font-weight: 800;
+      font-size: 12px;
+      display: inline-block;
+      padding: 5px 14px;
+      border-radius: 40px;
+      margin-bottom: 18px;
+      letter-spacing: 0.5px;
+    }
+    .ride-hero h1 {
+      font-size: 28px;
+      font-weight: 800;
+      margin-bottom: 14px;
+      line-height: 1.2;
+    }
+    .ride-hero h1 span {
+      background: linear-gradient(135deg, #ffb347, #ff7e2e);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .ride-hero p {
+      font-size: 14px;
+      line-height: 1.5;
+      color: #ffd9b5;
+      margin-bottom: 24px;
+    }
+    .earn-stats {
+      display: flex;
+      justify-content: center;
+      gap: 28px;
+      margin-top: 8px;
+    }
+    .stat-item {
+      text-align: center;
+    }
+    .stat-number {
+      font-size: 24px;
+      font-weight: 800;
+      color: #ff9f4a;
+    }
+    .stat-label {
+      font-size: 12px;
+      color: #ffe0bf;
+    }
+
+    /* Driver Form Card */
+    .driver-card {
+      background: white;
+      margin: 0 20px 28px 20px;
+      border-radius: 32px;
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+      padding: 28px 22px;
+      border: 1px solid #f0eae4;
+    }
+    .driver-title {
+      font-size: 22px;
+      font-weight: 800;
+      color: #1a1a1a;
+      margin-bottom: 6px;
+    }
+    .driver-sub {
+      font-size: 13px;
+      color: #ff5e00;
+      font-weight: 500;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .input-group {
+      margin-bottom: 20px;
+    }
+    .input-group label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      color: #2c2c2e;
+      margin-bottom: 8px;
+    }
+    .input-group input, .input-group select, .input-group textarea {
+      width: 100%;
+      padding: 14px 16px;
+      border-radius: 28px;
+      border: 1px solid #e5e5ea;
+      background: #fefaf7;
+      font-family: inherit;
+      font-size: 15px;
+      transition: 0.2s;
+      outline: none;
+    }
+    .input-group input:focus, .input-group select:focus, .input-group textarea:focus {
+      border-color: #ff5e00;
+      box-shadow: 0 0 0 3px rgba(255, 94, 0, 0.1);
+    }
+    .input-row {
+      display: flex;
+      gap: 12px;
+    }
+    .input-row .input-group {
+      flex: 1;
+    }
+    .checkbox-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 20px 0 24px;
+    }
+    .checkbox-group input {
+      width: 20px;
+      height: 20px;
+      accent-color: #ff5e00;
+    }
+    .checkbox-group label {
+      font-size: 13px;
+      color: #4a4a4e;
+    }
+    .ride-submit {
+      background: #ff5e00;
+      border: none;
+      width: 100%;
+      padding: 16px;
+      border-radius: 44px;
+      color: white;
+      font-weight: 800;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: 0 6px 14px rgba(255, 94, 0, 0.25);
+    }
+    .ride-submit:active {
+      transform: scale(0.97);
+      background: #e05200;
+    }
+    .note-legal {
+      text-align: center;
+      font-size: 11px;
+      color: #8e8e93;
+      margin-top: 20px;
+    }
+
+    /* Perks & Incentives */
+    .perks-section {
+      background: #fff9f5;
+      margin: 0 20px 28px 20px;
+      border-radius: 32px;
+      padding: 24px 22px;
+      border-left: 4px solid #ff5e00;
+    }
+    .perks-title {
+      font-weight: 800;
+      font-size: 18px;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .perks-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px;
+    }
+    .perk-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .perk-icon {
+      font-size: 24px;
+    }
+    .perk-text {
+      font-size: 13px;
+      font-weight: 500;
+      color: #2b2b2e;
+    }
+
+    /* Testimonial (driver story) */
+    .driver-story {
+      background: #ffffff;
+      margin: 0 20px 32px 20px;
+      border-radius: 28px;
+      padding: 20px;
+      box-shadow: 0 6px 14px rgba(0,0,0,0.04);
+      border: 1px solid #ffe4d6;
+    }
+    .story-text {
+      font-size: 14px;
+      font-style: italic;
+      color: #3a3a3c;
+      margin-bottom: 12px;
+    }
+    .story-author {
+      font-weight: 700;
+      font-size: 13px;
+      color: #ff5e00;
+    }
+
+    /* Footer - exact same colors, fonts, structure */
+    .site-footer {
+      background: #121212;
+      color: #e5e5e5;
+      padding: 40px 24px 32px;
+      margin-top: 16px;
+      border-top: 1px solid #2a2a2a;
+      text-align: center;
+    }
+
+    .footer-inner {
+      max-width: 400px;
+      margin: 0 auto;
+    }
+
+    .footer-brand {
+      margin-bottom: 32px;
+    }
+
+    .footer-logo {
+      font-size: 28px;
+      font-weight: 800;
+      background: linear-gradient(135deg, #ff6e3a, #ff3d00);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      display: inline-block;
+      margin-bottom: 8px;
+    }
+
+    .footer-tagline {
+      font-size: 12px;
+      color: #888;
+      margin-top: 4px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 28px 24px;
+      margin-bottom: 36px;
+      text-align: left;
+    }
+
+    .footer-col h4 {
+      color: #ffffff;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 14px;
+    }
+
+    .footer-col ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .footer-col ul li {
+      margin-bottom: 10px;
+    }
+
+    .footer-col ul li a {
+      color: #aaa;
+      text-decoration: none;
+      font-size: 12px;
+      transition: color 0.2s;
+    }
+
+    .footer-col ul li a:hover {
+      color: #ff6e3a;
+    }
+
+    .cities-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      margin: 20px 0 24px;
+      padding-top: 16px;
+      border-top: 1px solid #2a2a2a;
+    }
+
+    .city-badge {
+      background: #1f1f1f;
+      padding: 6px 14px;
+      border-radius: 40px;
+      font-size: 12px;
+      font-weight: 500;
+      color: #ddd;
+      cursor: pointer;
+    }
+
+    .legal-section {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+      margin: 20px 0 20px;
+      padding-top: 16px;
+      border-top: 1px solid #2a2a2a;
+      font-size: 11px;
+    }
+
+    .legal-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 18px;
+    }
+
+    .legal-links a {
+      color: #aaa;
+      text-decoration: none;
+      font-size: 11px;
+      cursor: pointer;
+    }
+
+    .social-icons {
+      display: flex;
+      gap: 20px;
+    }
+
+    .social-icons span {
+      font-size: 18px;
+      cursor: pointer;
+    }
+
+    .copyright {
+      font-size: 10px;
+      color: #6a6a6a;
+      text-align: center;
+      margin-top: 24px;
+      padding-top: 16px;
+      border-top: 1px solid #2a2a2a;
+    }
+
+    .copyright a {
+      color: #ff6e3a;
+      text-decoration: none;
+    }
+
+    @media (max-width: 480px) {
+      .footer-grid {
+        gap: 20px;
+      }
+      .legal-section {
+        flex-direction: column;
+        gap: 14px;
+      }
+      .ride-hero h1 {
+        font-size: 24px;
+      }
+      .perks-grid {
+        gap: 14px;
+      }
+    }
+
+    /* Toast */
+    .toast-message {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #1c1c1e;
+      color: white;
+      padding: 12px 20px;
+      border-radius: 40px;
+      font-size: 13px;
+      font-weight: 500;
+      z-index: 1100;
+      opacity: 0;
+      transition: 0.2s;
+      pointer-events: none;
+      text-align: center;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+      max-width: 90%;
+      white-space: normal;
+    }
+  </style>
+</head>
+<body>
+<div class="app-container">
+  <!-- Header identical to original -->
+  <div class="app-header">
+    <div class="header-row">
+      <div class="logo-area">
+        <span class="logo-icon">🍽️</span>
+        <span class="logo-text">Ku dineout</span>
+      </div>
+      <div class="action-icons">
+        <a href="sign.html" class="profile-link" id="profileIconBtn">👤</a>
+      </div>
+    </div>
+    <div class="location-card" id="locationTrigger">
+      <span class="loc-pin">🚖</span>
+      <span class="loc-address" id="locationLabel">Ride with Ku — Flexible earnings</span>
+      <span class="setup-pill" id="locBadge">Apply</span>
+    </div>
+  </div>
+
+  <!-- Ride Hero Section -->
+  <div class="ride-hero">
+    <div class="ride-badge">⚡ Drive with India's dining super app</div>
+    <h1>Ride with <span>Ku Dineout</span></h1>
+    <p>Earn attractive incentives, be your own boss, and deliver memorable dining experiences across the city.</p>
+    <div class="earn-stats">
+      <div class="stat-item"><div class="stat-number">₹35k+</div><div class="stat-label">Monthly earnings</div></div>
+      <div class="stat-item"><div class="stat-number">Flexi</div><div class="stat-label">Choose hours</div></div>
+      <div class="stat-item"><div class="stat-number">47+</div><div class="stat-label">Cities</div></div>
+    </div>
+  </div>
+
+  <!-- Driver Partner Form -->
+  <div class="driver-card">
+    <div class="driver-title">Become a delivery partner</div>
+    <div class="driver-sub">🚗 Join the Ku fleet — quick onboarding & bonuses</div>
+    <form id="rideForm">
+      <div class="input-row">
+        <div class="input-group">
+          <label>Full name *</label>
+          <input type="text" id="driverName" placeholder="e.g., Ravi Kumar" required>
+        </div>
+        <div class="input-group">
+          <label>City *</label>
+          <select id="driverCity" required>
+            <option value="">Select city</option>
+            <option>Hyderabad</option><option>Bangalore</option><option>Delhi</option>
+            <option>Mumbai</option><option>Pune</option><option>Chennai</option>
+            <option>Kolkata</option><option>Gurgaon</option>
+          </select>
+        </div>
+      </div>
+      <div class="input-row">
+        <div class="input-group">
+          <label>Phone number *</label>
+          <input type="tel" id="driverPhone" placeholder="+91 98765 43210" required>
+        </div>
+        <div class="input-group">
+          <label>Email ID *</label>
+          <input type="email" id="driverEmail" placeholder="driver@example.com" required>
+        </div>
+      </div>
+      <div class="input-row">
+        <div class="input-group">
+          <label>Vehicle type *</label>
+          <select id="vehicleType" required>
+            <option value="">Select</option>
+            <option>Bike (Petrol/EV)</option>
+            <option>Scooter</option>
+            <option>Car (Compact)</option>
+            <option>Bicycle (E-bike)</option>
+          </select>
+        </div>
+        <div class="input-group">
+          <label>License / Aadhaar (optional)</label>
+          <input type="text" id="licenseNum" placeholder="Last 4 digits for verification">
+        </div>
+      </div>
+      <div class="input-group">
+        <label>Preferred working hours (approx)</label>
+        <select id="shiftPref">
+          <option>Morning (6 AM - 12 PM)</option>
+          <option>Afternoon (12 PM - 6 PM)</option>
+          <option>Evening (6 PM - 12 AM)</option>
+          <option>Late night (12 AM - 4 AM)</option>
+          <option>Flexible / Any time</option>
+        </select>
+      </div>
+      <div class="checkbox-group">
+        <input type="checkbox" id="termsRide" required>
+        <label>I confirm that I have a valid driving license & agree to Ku Dineout's delivery partner T&C. ✅</label>
+      </div>
+      <button type="submit" class="ride-submit" id="submitRideBtn">🚀 Apply now →</button>
+      <div class="note-legal">Zero registration fee | Weekly payouts | Insurance cover</div>
+    </form>
+  </div>
+
+  <!-- Perks & incentives -->
+  <div class="perks-section">
+    <div class="perks-title"><span>🏍️</span> Why ride with Ku Dineout?</div>
+    <div class="perks-grid">
+      <div class="perk-item"><span class="perk-icon">💰</span><span class="perk-text">Guaranteed earnings + surge bonus</span></div>
+      <div class="perk-item"><span class="perk-icon">⛽</span><span class="perk-text">Fuel & maintenance support</span></div>
+      <div class="perk-item"><span class="perk-icon">🛡️</span><span class="perk-text">Accident insurance & safety kit</span></div>
+      <div class="perk-item"><span class="perk-icon">🎓</span><span class="perk-text">Free upskilling & financial planning</span></div>
+      <div class="perk-item"><span class="perk-icon">📱</span><span class="perk-text">Easy app with live tracking</span></div>
+      <div class="perk-item"><span class="perk-icon">🎁</span><span class="perk-text">Referral bonus: ₹2000 per friend</span></div>
+    </div>
+  </div>
+
+  <!-- Real driver story -->
+  <div class="driver-story">
+    <div class="story-text">“I switched to Ku Dineout deliveries last year. My monthly earnings increased by 40% and I get to choose my own schedule. The support team is amazing!”</div>
+    <div class="story-author">— Sunitha Reddy, Hyderabad | 5-star partner</div>
+  </div>
+
+  <!-- Footer (identical to original: colors, font, links) -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-logo">🍽️ Ku dineout</div>
+        <div class="footer-tagline">Good food, good times</div>
+      </div>
+      <div class="footer-grid">
+        <div class="footer-col">
+          <h4>Company</h4>
+          <ul>
+            <li><a href="about.html">About Ku</a></li>
+            <li><a href="careers.html">Careers</a></li>
+            <li><a href="team.html">Team</a></li>
+            <li><a href="news.html">News</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contact us</h4>
+          <ul>
+            <li><a href="help.html">Help & Support</a></li>
+            <li><a href="partner.html">Partner with us</a></li>
+            <li><a href="ride.html">Ride with us</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Available in:</h4>
+          <ul>
+            <li><a href="bangalore.html">Bangalore</a></li>
+            <li><a href="gurgaon.html">Gurgaon</a></li>
+            <li><a href="hyderabad.html">Hyderabad</a></li>
+            <li><a href="delhi.html">Delhi</a></li>
+            <li><a href="mumbai.html">Mumbai</a></li>
+            <li><a href="pune.html">Pune</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Explore with Ku</h4>
+          <ul>
+            <li><a href="kuone.html">Ku One</a></li>
+            <li><a href="kuinsta.html">Ku Instamart</a></li>
+            <li><a href="index.html">Ku Dineout</a></li>
+            <li><a href="kugenie.html">Ku Genie</a></li>
+            <li><a href="minis.html">Minis</a></li>
+            <li><a href="pyng.html">Pyng</a></li>
+            <li><a href="snackables.html">Snackables</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="cities-row">
+        <span class="city-badge">47 cities</span>
+        <span class="city-badge">Life at Ku</span>
+        <span class="city-badge">Corporate</span>
+      </div>
+      <div class="legal-section">
+        <div class="legal-links">
+          <a href="#">Terms & Conditions</a>
+          <a href="#">Cookie Policy</a>
+          <a href="#">Privacy Policy</a>
+        </div>
+        <div class="social-icons">
+          <span>📘</span><span>🐦</span><span>📸</span><span>🔗</span>
+        </div>
+      </div>
+      <div class="copyright">
+        © 2026 Ku Dineout Limited. All rights reserved. <a href="#">Legal</a>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<div id="globalToast" class="toast-message">🚖 Application received! Our fleet team will contact you soon.</div>
+
+<script>
+  // Toast system
+  let toastTimeout = null;
+  function showMessage(text, duration = 2800) {
+    const toast = document.getElementById("globalToast");
+    toast.innerText = text;
+    toast.style.opacity = "1";
+    if (toastTimeout) clearTimeout(toastTimeout);
+    toastTimeout = setTimeout(() => { toast.style.opacity = "0"; }, duration);
+  }
+
+  // Location badge: playful but functional
+  const locationTrigger = document.getElementById("locationTrigger");
+  const locationLabel = document.getElementById("locationLabel");
+  const locBadge = document.getElementById("locBadge");
+
+  function updateLocationPreference() {
+    let cityInput = prompt("Enter your preferred operating city (e.g., Hyderabad, Mumbai):", "Hyderabad");
+    if (cityInput && cityInput.trim()) {
+      locationLabel.innerText = `📍 ${cityInput.trim()} • Ride with Ku`;
+      locBadge.innerText = "✓";
+      locBadge.style.backgroundColor = "#e5f9ed";
+      locBadge.style.color = "#1e7b48";
+      showMessage(`City set to ${cityInput.trim()}`);
+    } else {
+      locationLabel.innerText = "Ride with Ku — Flexible earnings";
+      locBadge.innerText = "Apply";
+    }
+  }
+  locationTrigger.addEventListener("click", () => {
+    updateLocationPreference();
+  });
+
+  // Ride form submission
+  const rideForm = document.getElementById("rideForm");
+  rideForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    const driverName = document.getElementById("driverName").value.trim();
+    const driverCity = document.getElementById("driverCity").value;
+    const driverPhone = document.getElementById("driverPhone").value.trim();
+    const driverEmail = document.getElementById("driverEmail").value.trim();
+    const vehicleType = document.getElementById("vehicleType").value;
+    const termsChecked = document.getElementById("termsRide").checked;
+
+    if (!driverName || !driverCity || !driverPhone || !driverEmail || !vehicleType) {
+      showMessage("❌ Please fill all required fields: name, city, phone, email, vehicle type.", 2500);
+      return;
+    }
+    if (!termsChecked) {
+      showMessage("📜 Please accept the delivery partner terms & conditions.", 2000);
+      return;
+    }
+    if (!/^[\+]?[0-9\s]{10,13}$/.test(driverPhone.replace(/\s/g, ''))) {
+      showMessage("📞 Enter a valid phone number with 10 digits.", 1800);
+      return;
+    }
+    if (!driverEmail.includes('@') || !driverEmail.includes('.')) {
+      showMessage("✉️ Enter a valid email address.", 1800);
+      return;
+    }
+
+    // Simulated backend registration
+    const rideApplication = {
+      driverName,
+      driverCity,
+      driverPhone,
+      driverEmail,
+      vehicleType,
+      license: document.getElementById("licenseNum").value.trim(),
+      shift: document.getElementById("shiftPref").value,
+      appliedAt: new Date().toISOString()
+    };
+    console.log("Ride with us application:", rideApplication);
+    showMessage(`✅ Thanks ${driverName}! Ku Dineout ride team will reach out within 24 hours. Welcome aboard!`, 4000);
+    rideForm.reset();
+    document.getElementById("termsRide").checked = false;
+    document.getElementById("vehicleType").value = "";
+    document.getElementById("driverCity").value = "";
+    // Reset location badge for cleaner UI
+    locationLabel.innerText = "Ride with Ku — Flexible earnings";
+    locBadge.innerText = "Apply";
+    locBadge.style.backgroundColor = "#ffede3";
+    locBadge.style.color = "#ff5e00";
+  });
+
+  // Profile navigation (preserve original behavior)
+  const profileIcon = document.getElementById("profileIconBtn");
+  if (profileIcon) {
+    profileIcon.addEventListener("click", (e) => {
+      // default link to sign.html
+    });
+  }
+
+  // Footer interactions: mirror original behaviour (keep links alive but prevent missing pages from crashing)
+  document.querySelectorAll('.footer-col a, .legal-links a, .city-badge, .social-icons span').forEach(el => {
+    el.addEventListener('click', (e) => {
+      const href = el.getAttribute('href');
+      if (href && href !== '#' && href !== 'javascript:void(0)' && !href.startsWith('javascript')) {
+        if (href === 'ride.html') {
+          e.preventDefault();
+          showMessage("🚖 You're already on the Ride with us page", 1200);
+          return;
+        }
+        return; // let normal navigation happen (about.html, careers etc)
+      }
+      e.preventDefault();
+      showMessage(`✨ ${el.innerText.trim()} — coming soon`, 1200);
+    });
+  });
+</script>
+</body>
+</html>

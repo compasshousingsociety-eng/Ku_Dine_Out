@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Ku Dineout — Ku One | Premium Membership</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      background: #f5f5f5;
+      color: #1c1c1e;
+    }
+
+    .app-container {
+      max-width: 500px;
+      margin: 0 auto;
+      background: #ffffff;
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.03);
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Header */
+    .app-header {
+      background: white;
+      padding: 14px 18px 10px 18px;
+      border-bottom: 1px solid #f0f0f0;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+
+    .logo-area {
+      display: flex;
+      align-items: baseline;
+      gap: 4px;
+    }
+
+    .logo-icon {
+      font-size: 26px;
+      font-weight: 800;
+      background: linear-gradient(135deg, #ff6e3a, #ff3d00);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .logo-text {
+      font-size: 20px;
+      font-weight: 800;
+      background: linear-gradient(135deg, #ff6e3a, #ff3d00);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      letter-spacing: -0.5px;
+    }
+
+    .action-icons {
+      display: flex;
+      gap: 20px;
+    }
+
+    .action-icons span {
+      font-size: 22px;
+      font-weight: 500;
+    }
+
+    .profile-link {
+      text-decoration: none;
+      color: inherit;
+      display: inline-block;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    .profile-link:active {
+      opacity: 0.6;
+    }
+
+    .location-card {
+      background: #f7f7f9;
+      border-radius: 30px;
+      padding: 8px 16px 8px 14px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      width: auto;
+      max-width: 100%;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .location-card:active {
+      background: #efefef;
+    }
+
+    .loc-pin {
+      font-size: 18px;
+    }
+
+    .loc-address {
+      font-size: 14px;
+      font-weight: 520;
+      color: #1a1a1a;
+      letter-spacing: -0.2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .setup-pill {
+      background: #ffede3;
+      color: #ff5e00;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 4px 8px;
+      border-radius: 40px;
+      margin-left: 4px;
+    }
+
+    /* Ku One Hero Section */
+    .kuone-hero {
+      background: linear-gradient(135deg, #1a0f0a 0%, #2d1f14 100%);
+      margin: 20px 20px 24px 20px;
+      border-radius: 36px;
+      padding: 32px 24px;
+      color: white;
+      text-align: center;
+      box-shadow: 0 20px 30px -12px rgba(0,0,0,0.35);
+      position: relative;
+      overflow: hidden;
+    }
+    .kuone-badge {
+      background: linear-gradient(135deg, #ffd966, #ffb347);
+      color: #1a0f0a;
+      font-weight: 800;
+      font-size: 12px;
+      display: inline-block;
+      padding: 5px 14px;
+      border-radius: 40px;
+      margin-bottom: 18px;
+      letter-spacing: 0.5px;
+    }
+    .kuone-hero h1 {
+      font-size: 36px;
+      font-weight: 800;
+      margin-bottom: 12px;
+      line-height: 1.2;
+    }
+    .kuone-hero h1 span {
+      background: linear-gradient(135deg, #ffd966, #ff9f4a);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .kuone-hero p {
+      font-size: 14px;
+      line-height: 1.5;
+      color: #ffd9b5;
+      margin-bottom: 20px;
+    }
+    .price-badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.15);
+      backdrop-filter: blur(8px);
+      padding: 10px 24px;
+      border-radius: 60px;
+      margin-top: 8px;
+    }
+    .price-badge .price {
+      font-size: 28px;
+      font-weight: 800;
+      color: #ffd966;
+    }
+    .price-badge .period {
+      font-size: 12px;
+      color: #ffe0bf;
+    }
+
+    /* Features Grid */
+    .features-section {
+      background: white;
+      margin: 0 20px 24px 20px;
+      border-radius: 32px;
+      padding: 24px 20px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+      border: 1px solid #f0eae4;
+    }
+    .features-title {
+      font-size: 20px;
+      font-weight: 800;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+    .feature-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 8px;
+    }
+    .feature-icon {
+      font-size: 32px;
+    }
+    .feature-text {
+      font-size: 12px;
+      font-weight: 600;
+      color: #2c2c2e;
+    }
+    .feature-desc {
+      font-size: 10px;
+      color: #8e8e93;
+    }
+
+    /* Pricing Plans */
+    .pricing-section {
+      margin: 8px 20px 24px 20px;
+    }
+    .section-header {
+      margin-bottom: 16px;
+      padding: 0 4px;
+    }
+    .section-title {
+      font-size: 20px;
+      font-weight: 800;
+      color: #1a1a1a;
+    }
+    .section-sub {
+      font-size: 12px;
+      color: #ff5e00;
+      margin-top: 4px;
+    }
+    .plans-container {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .plan-card {
+      background: white;
+      border-radius: 28px;
+      padding: 20px;
+      border: 2px solid #f0eae4;
+      transition: all 0.2s ease;
+      cursor: pointer;
+      position: relative;
+    }
+    .plan-card.popular {
+      border-color: #ff5e00;
+      background: linear-gradient(135deg, #fff9f5, #ffffff);
+    }
+    .popular-badge {
+      position: absolute;
+      top: -12px;
+      right: 20px;
+      background: #ff5e00;
+      color: white;
+      font-size: 10px;
+      font-weight: 800;
+      padding: 4px 12px;
+      border-radius: 30px;
+    }
+    .plan-name {
+      font-size: 18px;
+      font-weight: 800;
+      margin-bottom: 4px;
+    }
+    .plan-price {
+      font-size: 28px;
+      font-weight: 800;
+      color: #ff5e00;
+      margin: 12px 0 4px;
+    }
+    .plan-price small {
+      font-size: 12px;
+      font-weight: 500;
+      color: #8e8e93;
+    }
+    .plan-savings {
+      font-size: 11px;
+      color: #1e7b48;
+      background: #e5f9ed;
+      display: inline-block;
+      padding: 2px 10px;
+      border-radius: 20px;
+      margin-bottom: 12px;
+    }
+    .plan-features {
+      list-style: none;
+      margin: 16px 0;
+    }
+    .plan-features li {
+      font-size: 12px;
+      padding: 6px 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .plan-features li::before {
+      content: "✓";
+      color: #ff5e00;
+      font-weight: 800;
+    }
+    .plan-btn {
+      width: 100%;
+      background: #ff5e00;
+      border: none;
+      padding: 14px;
+      border-radius: 44px;
+      color: white;
+      font-weight: 700;
+      font-size: 14px;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .plan-btn:active {
+      transform: scale(0.97);
+      background: #e05200;
+    }
+    .plan-card.secondary .plan-btn {
+      background: #f2f2f6;
+      color: #ff5e00;
+    }
+
+    /* Testimonial */
+    .testimonial-card {
+      background: #fff9f5;
+      margin: 8px 20px 28px 20px;
+      border-radius: 28px;
+      padding: 20px;
+      border-left: 4px solid #ff5e00;
+    }
+    .testimonial-text {
+      font-size: 14px;
+      font-style: italic;
+      color: #3a3a3c;
+      margin-bottom: 12px;
+    }
+    .testimonial-author {
+      font-weight: 700;
+      font-size: 13px;
+      color: #ff5e00;
+    }
+
+    /* Footer */
+    .site-footer {
+      background: #121212;
+      color: #e5e5e5;
+      padding: 40px 24px 32px;
+      margin-top: 16px;
+      border-top: 1px solid #2a2a2a;
+      text-align: center;
+    }
+
+    .footer-inner {
+      max-width: 400px;
+      margin: 0 auto;
+    }
+
+    .footer-brand {
+      margin-bottom: 32px;
+    }
+
+    .footer-logo {
+      font-size: 28px;
+      font-weight: 800;
+      background: linear-gradient(135deg, #ff6e3a, #ff3d00);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      display: inline-block;
+      margin-bottom: 8px;
+    }
+
+    .footer-tagline {
+      font-size: 12px;
+      color: #888;
+      margin-top: 4px;
+    }
+
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 28px 24px;
+      margin-bottom: 36px;
+      text-align: left;
+    }
+
+    .footer-col h4 {
+      color: #ffffff;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 14px;
+    }
+
+    .footer-col ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .footer-col ul li {
+      margin-bottom: 10px;
+    }
+
+    .footer-col ul li a {
+      color: #aaa;
+      text-decoration: none;
+      font-size: 12px;
+      transition: color 0.2s;
+    }
+
+    .footer-col ul li a:hover {
+      color: #ff6e3a;
+    }
+
+    .cities-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      margin: 20px 0 24px;
+      padding-top: 16px;
+      border-top: 1px solid #2a2a2a;
+    }
+
+    .city-badge {
+      background: #1f1f1f;
+      padding: 6px 14px;
+      border-radius: 40px;
+      font-size: 12px;
+      font-weight: 500;
+      color: #ddd;
+      cursor: pointer;
+    }
+
+    .legal-section {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+      margin: 20px 0 20px;
+      padding-top: 16px;
+      border-top: 1px solid #2a2a2a;
+      font-size: 11px;
+    }
+
+    .legal-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 18px;
+    }
+
+    .legal-links a {
+      color: #aaa;
+      text-decoration: none;
+      font-size: 11px;
+      cursor: pointer;
+    }
+
+    .social-icons {
+      display: flex;
+      gap: 20px;
+    }
+
+    .social-icons span {
+      font-size: 18px;
+      cursor: pointer;
+    }
+
+    .copyright {
+      font-size: 10px;
+      color: #6a6a6a;
+      text-align: center;
+      margin-top: 24px;
+      padding-top: 16px;
+      border-top: 1px solid #2a2a2a;
+    }
+
+    .copyright a {
+      color: #ff6e3a;
+      text-decoration: none;
+    }
+
+    @media (max-width: 480px) {
+      .footer-grid {
+        gap: 20px;
+      }
+      .legal-section {
+        flex-direction: column;
+        gap: 14px;
+      }
+      .features-grid {
+        gap: 16px;
+      }
+    }
+
+    .toast-message {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #1c1c1e;
+      color: white;
+      padding: 12px 20px;
+      border-radius: 40px;
+      font-size: 13px;
+      font-weight: 500;
+      z-index: 1100;
+      opacity: 0;
+      transition: 0.2s;
+      pointer-events: none;
+      text-align: center;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+      max-width: 90%;
+    }
+  </style>
+</head>
+<body>
+<div class="app-container">
+  <!-- Header identical to original -->
+  <div class="app-header">
+    <div class="header-row">
+      <div class="logo-area">
+        <span class="logo-icon">🍽️</span>
+        <span class="logo-text">Ku dineout</span>
+      </div>
+      <div class="action-icons">
+        <a href="sign.html" class="profile-link" id="profileIconBtn">👤</a>
+      </div>
+    </div>
+    <div class="location-card" id="locationTrigger">
+      <span class="loc-pin">⭐</span>
+      <span class="loc-address" id="locationLabel">Ku One — Premium Dining</span>
+      <span class="setup-pill" id="locBadge">Upgrade</span>
+    </div>
+  </div>
+
+  <!-- Ku One Hero -->
+  <div class="kuone-hero">
+    <div class="kuone-badge">👑 Unlimited Dining Rewards</div>
+    <h1>Ku <span>One</span> Membership</h1>
+    <p>Unlock exclusive perks, priority reservations, and up to 30% off at 1000+ partner restaurants.</p>
+    <div class="price-badge">
+      <span class="price">₹999</span>
+      <span class="period"> / year</span>
+    </div>
+  </div>
+
+  <!-- Features Grid -->
+  <div class="features-section">
+    <div class="features-title">
+      <span>✨</span> What's included?
+    </div>
+    <div class="features-grid">
+      <div class="feature-item">
+        <div class="feature-icon">🍽️</div>
+        <div class="feature-text">30% Off Dining</div>
+        <div class="feature-desc">At 1000+ restaurants</div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">⏰</div>
+        <div class="feature-text">Priority Booking</div>
+        <div class="feature-desc">Skip the waitlist</div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">🎁</div>
+        <div class="feature-text">Birthday Treats</div>
+        <div class="feature-desc">Free cake & upgrades</div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">🚀</div>
+        <div class="feature-text">Early Access</div>
+        <div class="feature-desc">New restaurant launches</div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">💎</div>
+        <div class="feature-text">Concierge Service</div>
+        <div class="feature-desc">24/7 personal help</div>
+      </div>
+      <div class="feature-item">
+        <div class="feature-icon">🏆</div>
+        <div class="feature-text">Double Ku Coins</div>
+        <div class="feature-desc">On every booking</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Pricing Plans -->
+  <div class="pricing-section">
+    <div class="section-header">
+      <div class="section-title">Choose your plan</div>
+      <div class="section-sub">Cancel anytime • No hidden fees</div>
+    </div>
+    <div class="plans-container">
+      <!-- Monthly Plan -->
+      <div class="plan-card secondary" id="monthlyPlan">
+        <div class="plan-name">Monthly Pass</div>
+        <div class="plan-price">₹129 <small>/month</small></div>
+        <div class="plan-savings">Billed monthly</div>
+        <ul class="plan-features">
+          <li>20% off on dining</li>
+          <li>Priority seating</li>
+          <li>Birthday bonus</li>
+        </ul>
+        <button class="plan-btn" data-plan="Monthly">Get Monthly →</button>
+      </div>
+
+      <!-- Yearly Plan (Popular) -->
+      <div class="plan-card popular" id="yearlyPlan">
+        <div class="popular-badge">🔥 Most Popular</div>
+        <div class="plan-name">Ku One Annual</div>
+        <div class="plan-price">₹999 <small>/year</small></div>
+        <div class="plan-savings">Save ₹549 vs monthly</div>
+        <ul class="plan-features">
+          <li>30% off on dining</li>
+          <li>Priority booking + concierge</li>
+          <li>Double Ku Coins + Birthday treat</li>
+          <li>Early access to events</li>
+        </ul>
+        <button class="plan-btn" data-plan="Annual">Get Ku One →</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Testimonial -->
+  <div class="testimonial-card">
+    <div class="testimonial-text">“Ku One saved me over ₹8,000 last year! The priority booking at busy restaurants is a game-changer. Best dining membership ever.”</div>
+    <div class="testimonial-author">— Priya Mehta, Bangalore (Ku One member since 2024)</div>
+  </div>
+
+  <!-- Footer exact same -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-logo">🍽️ Ku dineout</div>
+        <div class="footer-tagline">Good food, good times</div>
+      </div>
+      <div class="footer-grid">
+        <div class="footer-col">
+          <h4>Company</h4>
+          <ul>
+            <li><a href="about.html">About Ku</a></li>
+            <li><a href="careers.html">Careers</a></li>
+            <li><a href="team.html">Team</a></li>
+            <li><a href="news.html">News</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Contact us</h4>
+          <ul>
+            <li><a href="help.html">Help & Support</a></li>
+            <li><a href="partner.html">Partner with us</a></li>
+            <li><a href="ride.html">Ride with us</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Available in:</h4>
+          <ul>
+            <li><a href="bangalore.html">Bangalore</a></li>
+            <li><a href="gurgaon.html">Gurgaon</a></li>
+            <li><a href="hyderabad.html">Hyderabad</a></li>
+            <li><a href="delhi.html">Delhi</a></li>
+            <li><a href="mumbai.html">Mumbai</a></li>
+            <li><a href="pune.html">Pune</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Explore with Ku</h4>
+          <ul>
+            <li><a href="kuone.html">Ku One</a></li>
+            <li><a href="kuinsta.html">Ku Instamart</a></li>
+            <li><a href="index.html">Ku Dineout</a></li>
+            <li><a href="kugenie.html">Ku Genie</a></li>
+            <li><a href="minis.html">Minis</a></li>
+            <li><a href="pyng.html">Pyng</a></li>
+            <li><a href="snackables.html">Snackables</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="cities-row">
+        <span class="city-badge">47 cities</span>
+        <span class="city-badge">Life at Ku</span>
+        <span class="city-badge">Corporate</span>
+      </div>
+      <div class="legal-section">
+        <div class="legal-links">
+          <a href="#">Terms & Conditions</a>
+          <a href="#">Cookie Policy</a>
+          <a href="#">Privacy Policy</a>
+        </div>
+        <div class="social-icons">
+          <span>📘</span><span>🐦</span><span>📸</span><span>🔗</span>
+        </div>
+      </div>
+      <div class="copyright">
+        © 2026 Ku Dineout Limited. All rights reserved. <a href="#">Legal</a>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<div id="globalToast" class="toast-message">✨ Welcome to Ku One!</div>
+
+<script>
+  // Toast system
+  let toastTimeout = null;
+  function showMessage(text, duration = 2800) {
+    const toast = document.getElementById("globalToast");
+    toast.innerText = text;
+    toast.style.opacity = "1";
+    if (toastTimeout) clearTimeout(toastTimeout);
+    toastTimeout = setTimeout(() => { toast.style.opacity = "0"; }, duration);
+  }
+
+  // Location trigger (non-critical but matches original)
+  const locationTrigger = document.getElementById("locationTrigger");
+  const locationLabel = document.getElementById("locationLabel");
+  const locBadge = document.getElementById("locBadge");
+
+  function handleLocationClick() {
+    showMessage("⭐ Ku One members enjoy nationwide benefits at 1000+ restaurants!", 2000);
+  }
+  locationTrigger.addEventListener("click", handleLocationClick);
+
+  // Plan selection handlers
+  const monthlyPlanBtn = document.querySelector('#monthlyPlan .plan-btn');
+  const yearlyPlanBtn = document.querySelector('#yearlyPlan .plan-btn');
+
+  monthlyPlanBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    showMessage("🎉 Monthly plan selected! Redirecting to payment...", 2000);
+    setTimeout(() => {
+      showMessage("💳 This is a demo. Ku One monthly plan: ₹129/month", 2500);
+    }, 2000);
+  });
+
+  yearlyPlanBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    showMessage("👑 Ku One Annual plan selected! You're about to unlock premium dining benefits.", 2000);
+    setTimeout(() => {
+      showMessage("✨ Demo: Annual membership would be activated for ₹999/year", 2500);
+    }, 2000);
+  });
+
+  // Card hover effects (optional)
+  const planCards = document.querySelectorAll('.plan-card');
+  planCards.forEach(card => {
+    card.addEventListener('click', (e) => {
+      if (e.target.classList.contains('plan-btn')) return;
+      const btn = card.querySelector('.plan-btn');
+      if (btn) btn.click();
+    });
+  });
+
+  // Profile nav
+  const profileIcon = document.getElementById("profileIconBtn");
+  if (profileIcon) {
+    profileIcon.addEventListener("click", (e) => { /* sign.html */ });
+  }
+
+  // Footer interactions (same as original)
+  document.querySelectorAll('.footer-col a, .legal-links a, .city-badge, .social-icons span').forEach(el => {
+    el.addEventListener('click', (e) => {
+      const href = el.getAttribute('href');
+      if (href && href !== '#' && href !== 'javascript:void(0)' && !href.startsWith('javascript')) {
+        if (href === 'kuone.html') {
+          e.preventDefault();
+          showMessage("👑 You're already on Ku One page", 1200);
+          return;
+        }
+        return;
+      }
+      e.preventDefault();
+      showMessage(`✨ ${el.innerText.trim()} — coming soon`, 1200);
+    });
+  });
+
+  // Initial welcome
+  showMessage("👑 Welcome to Ku One — unlock unlimited dining rewards!", 3000);
+</script>
+</body>
+</html>

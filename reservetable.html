@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Ku Dineout — Reserve a Table | Book Your Dining Experience</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      background: #f5f5f5;
+      color: #1c1c1e;
+    }
+
+    .app-container {
+      max-width: 500px;
+      margin: 0 auto;
+      background: #ffffff;
+      min-height: 100vh;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.03);
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Header - same as other pages */
+    .app-header {
+      background: white;
+      padding: 12px 18px 10px 18px;
+      border-bottom: 1px solid #f0f0f0;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+
+    .header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+
+    .logo-area {
+      display: flex;
+      align-items: baseline;
+      gap: 4px;
+    }
+
+    .logo-icon {
+      font-size: 26px;
+      font-weight: 800;
+    }
+
+    .logo-text {
+      font-size: 20px;
+      font-weight: 800;
+      background: linear-gradient(135deg, #ff6e3a, #ff3d00);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      letter-spacing: -0.5px;
+    }
+
+    .action-icons {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+
+    .home-link, .profile-link {
+      text-decoration: none;
+      color: #1c1c1e;
+      font-size: 22px;
+      display: inline-flex;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    /* Location bar */
+    .location-bar {
+      background: #f7f7f9;
+      border-radius: 30px;
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .location-bar:active {
+      background: #efefef;
+    }
+    .location-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      overflow: hidden;
+    }
+    .loc-icon {
+      font-size: 18px;
+    }
+    .loc-address {
+      font-size: 14px;
+      font-weight: 520;
+      color: #1a1a1a;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .loc-badge {
+      background: #ffede3;
+      color: #ff5e00;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 40px;
+      margin-left: 6px;
+      white-space: nowrap;
+    }
+
+    /* Reserve Hero */
+    .reserve-hero {
+      background: linear-gradient(135deg, #fff5ed 0%, #ffffff 100%);
+      padding: 28px 24px 24px;
+      border-bottom: 1px solid #ffe0d0;
+    }
+    .reserve-badge {
+      display: inline-block;
+      background: #ffede3;
+      color: #ff5e00;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 5px 14px;
+      border-radius: 40px;
+      margin-bottom: 12px;
+    }
+    .reserve-title {
+      font-size: 28px;
+      font-weight: 800;
+      color: #1a1a1a;
+      line-height: 1.2;
+      margin-bottom: 8px;
+    }
+    .reserve-title span {
+      background: linear-gradient(135deg, #ff6e3a, #ff3d00);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .reserve-sub {
+      font-size: 14px;
+      color: #6c6c70;
+      margin-top: 6px;
+    }
+
+    /* Restaurant Selection */
+    .restaurant-section {
+      padding: 20px 20px 16px;
+    }
+    .section-label {
+      font-size: 14px;
+      font-weight: 700;
+      color: #1a1a1a;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .restaurant-selector {
+      background: #fef9f5;
+      border-radius: 24px;
+      padding: 16px;
+      cursor: pointer;
+      border: 1px solid #f0e6e0;
+      transition: all 0.2s;
+    }
+    .restaurant-selector:active {
+      transform: scale(0.98);
+      background: #fff5ed;
+    }
+    .selected-resto {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .resto-icon {
+      font-size: 40px;
+    }
+    .resto-info h3 {
+      font-size: 18px;
+      font-weight: 800;
+      margin-bottom: 4px;
+    }
+    .resto-info p {
+      font-size: 12px;
+      color: #6c6c70;
+    }
+    .change-link {
+      margin-left: auto;
+      color: #ff5e00;
+      font-size: 13px;
+      font-weight: 600;
+    }
+
+    /* Booking Form */
+    .booking-form {
+      padding: 8px 20px 20px;
+    }
+    .form-group {
+      margin-bottom: 24px;
+    }
+    .form-label {
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      display: block;
+      color: #1a1a1a;
+    }
+    .date-selector, .time-selector, .guests-selector {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .date-option, .time-option, .guest-option {
+      background: #f7f7f9;
+      padding: 12px 20px;
+      border-radius: 44px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: 1.5px solid transparent;
+    }
+    .date-option.selected, .time-option.selected, .guest-option.selected {
+      background: #ff5e00;
+      color: white;
+      border-color: #ff5e00;
+    }
+    .date-option:active, .time-option:active, .guest-option:active {
+      transform: scale(0.96);
+    }
+    .special-request {
+      width: 100%;
+      padding: 14px 16px;
+      border: 1.5px solid #e9e9ef;
+      border-radius: 24px;
+      font-size: 14px;
+      font-family: inherit;
+      resize: none;
+      outline: none;
+      transition: all 0.2s;
+    }
+    .special-request:focus {
+      border-color: #ff5e00;
+      box-shadow: 0 0 0 3px rgba(255,94,0,0.08);
+    }
+
+    /* Booking Summary */
+    .summary-section {
+      background: #fefaf7;
+      padding: 20px 20px 24px;
+      margin: 8px 20px 20px;
+      border-radius: 28px;
+      border: 1px solid #ffe0d0;
+    }
+    .summary-title {
+      font-size: 16px;
+      font-weight: 800;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: 1px solid #f0e0d4;
+    }
+    .summary-row:last-child {
+      border-bottom: none;
+    }
+    .summary-label {
+      font-size: 14px;
+      color: #5e5e62;
+    }
+    .summary-value {
+      font-weight: 700;
+      color: #1a1a1a;
+    }
+    .total-row {
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 2px dashed #ffd9c5;
+    }
+    .total-label {
+      font-weight: 800;
+      font-size: 16px;
+    }
+    .total-value {
+      font-size: 18px;
+      font-weight: 800;
+      color: #ff5e00;
+    }
+
+    /* Reserve Button */
+    .reserve-btn-container {
+      padding: 8px 20px 28px;
+    }
+    .reserve-btn {
+      background: #ff5e00;
+      width: 100%;
+      border: none;
+      padding: 18px;
+      border-radius: 44px;
+      color: white;
+      font-weight: 800;
+      font-size: 17px;
+      cursor: pointer;
+      transition: 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+    .reserve-btn:active {
+      transform: scale(0.97);
+      background: #e05200;
+    }
+
+    /* Footer */
+    .site-footer {
+      background: #121212;
+      color: #e5e5e5;
+      padding: 40px 24px 32px;
+      margin-top: auto;
+      border-top: 1px solid #2a2a2a;
+      text-align: center;
+    }
+    .footer-inner {
+      max-width: 400px;
+      margin: 0 auto;
+    }
+    .footer-brand {
+      margin-bottom: 32px;
+    }
+    .footer-logo {
+      font-size: 28px;
+      font-weight: 800;
+      background: linear-gradient(135deg, #ff6e3a, #ff3d00);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      display: inline-block;
+      margin-bottom: 8px;
+    }
+    .footer-tagline {
+      font-size: 12px;
+      color: #888;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 28px 24px;
+      margin-bottom: 36px;
+      text-align: left;
+    }
+    .footer-col h4 {
+      color: #ffffff;
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 14px;
+    }
+    .footer-col ul {
+      list-style: none;
+      padding: 0;
+    }
+    .footer-col ul li {
+      margin-bottom: 10px;
+    }
+    .footer-col ul li a {
+      color: #aaa;
+      text-decoration: none;
+      font-size: 12px;
+      transition: color 0.2s;
+      cursor: pointer;
+    }
+    .footer-col ul li a:hover {
+      color: #ff6e3a;
+    }
+    .cities-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      margin: 20px 0 24px;
+      padding-top: 16px;
+      border-top: 1px solid #2a2a2a;
+    }
+    .city-badge {
+      background: #1f1f1f;
+      padding: 6px 14px;
+      border-radius: 40px;
+      font-size: 12px;
+      font-weight: 500;
+      color: #ddd;
+      cursor: pointer;
+    }
+    .legal-section {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+      margin: 20px 0 20px;
+      padding-top: 16px;
+      border-top: 1px solid #2a2a2a;
+      font-size: 11px;
+    }
+    .legal-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 18px;
+    }
+    .legal-links a {
+      color: #aaa;
+      text-decoration: none;
+      font-size: 11px;
+      cursor: pointer;
+    }
+    .social-icons {
+      display: flex;
+      gap: 20px;
+    }
+    .social-icons span {
+      font-size: 18px;
+      cursor: pointer;
+    }
+    .copyright {
+      font-size: 10px;
+      color: #6a6a6a;
+      text-align: center;
+      margin-top: 24px;
+      padding-top: 16px;
+      border-top: 1px solid #2a2a2a;
+    }
+    .copyright a {
+      color: #ff6e3a;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    /* Restaurant Modal */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      align-items: flex-end;
+      justify-content: center;
+      z-index: 1000;
+    }
+    .modal-sheet {
+      background: white;
+      width: 100%;
+      max-width: 500px;
+      border-radius: 32px 32px 0 0;
+      padding: 24px 20px 32px;
+      animation: slideUp 0.3s ease;
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+    @keyframes slideUp {
+      from { transform: translateY(100%); }
+      to { transform: translateY(0); }
+    }
+    .modal-sheet h3 {
+      font-size: 22px;
+      font-weight: 800;
+      margin-bottom: 16px;
+    }
+    .resto-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .resto-option {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px;
+      background: #fef9f5;
+      border-radius: 20px;
+      cursor: pointer;
+      transition: 0.1s;
+    }
+    .resto-option:active {
+      transform: scale(0.98);
+      background: #ffede3;
+    }
+    .resto-option-emoji {
+      font-size: 36px;
+    }
+    .resto-option-info h4 {
+      font-size: 16px;
+      font-weight: 800;
+    }
+    .resto-option-info p {
+      font-size: 12px;
+      color: #6c6c70;
+    }
+    .modal-close {
+      margin-top: 20px;
+      text-align: center;
+      padding: 12px;
+      background: #f0f0f0;
+      border-radius: 44px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .toast-message {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #1c1c1e;
+      color: white;
+      padding: 12px 20px;
+      border-radius: 40px;
+      font-size: 13px;
+      font-weight: 500;
+      z-index: 1100;
+      opacity: 0;
+      transition: 0.2s;
+      pointer-events: none;
+      text-align: center;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+      max-width: 90%;
+    }
+
+    @media (max-width: 480px) {
+      .reserve-title {
+        font-size: 24px;
+      }
+      .date-option, .time-option, .guest-option {
+        padding: 10px 16px;
+        font-size: 13px;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="app-container">
+  <!-- Header -->
+  <div class="app-header">
+    <div class="header-row">
+      <div class="logo-area">
+        <span class="logo-icon">🍽️</span>
+        <span class="logo-text">Ku dineout</span>
+      </div>
+      <div class="action-icons">
+        <a href="index.html" class="home-link" id="homeIconLink">🏠</a>
+        <a href="sign.html" class="profile-link" id="profileIconLink">👤</a>
+      </div>
+    </div>
+    <div class="location-bar" id="locationTrigger">
+      <div class="location-left">
+        <span class="loc-icon">📍</span>
+        <span class="loc-address" id="locationLabel">Enter your delivery location</span>
+        <span class="loc-badge" id="locBadge">Tap to set</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Reserve Hero -->
+  <div class="reserve-hero">
+    <div class="reserve-badge">🍷 Book Your Table</div>
+    <h1 class="reserve-title">Reserve a <span>table</span> in seconds</h1>
+    <p class="reserve-sub">Choose your favourite restaurant, pick a time, and get instant confirmation</p>
+  </div>
+
+  <!-- Restaurant Selection -->
+  <div class="restaurant-section">
+    <div class="section-label">
+      <span>🏠</span> Select Restaurant
+    </div>
+    <div class="restaurant-selector" id="restaurantSelector">
+      <div class="selected-resto">
+        <div class="resto-icon" id="selectedRestoIcon">🍕</div>
+        <div class="resto-info">
+          <h3 id="selectedRestoName">The Grand Trunk</h3>
+          <p id="selectedRestoLoc">Jubilee Hills, Hyderabad • 4.5 ⭐</p>
+        </div>
+        <div class="change-link">Change →</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Booking Form -->
+  <div class="booking-form">
+    <!-- Date Selection -->
+    <div class="form-group">
+      <div class="form-label">📅 Select Date</div>
+      <div class="date-selector" id="dateSelector"></div>
+    </div>
+
+    <!-- Time Selection -->
+    <div class="form-group">
+      <div class="form-label">⏰ Select Time</div>
+      <div class="time-selector" id="timeSelector"></div>
+    </div>
+
+    <!-- Guests Selection -->
+    <div class="form-group">
+      <div class="form-label">👥 Number of Guests</div>
+      <div class="guests-selector" id="guestsSelector"></div>
+    </div>
+
+    <!-- Special Request -->
+    <div class="form-group">
+      <div class="form-label">📝 Special Requests (Optional)</div>
+      <textarea class="special-request" id="specialRequest" rows="2" placeholder="e.g., Window seat, vegetarian preference, anniversary celebration..."></textarea>
+    </div>
+  </div>
+
+  <!-- Booking Summary -->
+  <div class="summary-section">
+    <div class="summary-title">
+      <span>📋</span> Booking Summary
+    </div>
+    <div class="summary-row">
+      <span class="summary-label">Restaurant</span>
+      <span class="summary-value" id="summaryResto">The Grand Trunk</span>
+    </div>
+    <div class="summary-row">
+      <span class="summary-label">Date</span>
+      <span class="summary-value" id="summaryDate">Today</span>
+    </div>
+    <div class="summary-row">
+      <span class="summary-label">Time</span>
+      <span class="summary-value" id="summaryTime">8:00 PM</span>
+    </div>
+    <div class="summary-row">
+      <span class="summary-label">Guests</span>
+      <span class="summary-value" id="summaryGuests">2 guests</span>
+    </div>
+    <div class="summary-row total-row">
+      <span class="summary-label total-label">Booking Fee</span>
+      <span class="summary-value total-value">₹0</span>
+    </div>
+  </div>
+
+  <!-- Reserve Button -->
+  <div class="reserve-btn-container">
+    <button class="reserve-btn" id="confirmReserveBtn">
+      ✨ Confirm Reservation →
+    </button>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-logo">🍽️ Ku dineout</div>
+        <div class="footer-tagline">Good food, good times</div>
+      </div>
+      <div class="footer-grid">
+        <div class="footer-col"><h4>Company</h4><ul><li><a href="about.html">About Ku</a></li><li><a href="careers.html">Careers</a></li><li><a href="team.html">Team</a></li><li><a href="news.html">News</a></li></ul></div>
+        <div class="footer-col"><h4>Contact us</h4><ul><li><a href="help.html">Help & Support</a></li><li><a href="partner.html">Partner with us</a></li><li><a href="ride.html">Ride with us</a></li></ul></div>
+        <div class="footer-col"><h4>Available in:</h4><ul><li><a href="bangalore.html">Bangalore</a></li><li><a href="gurgaon.html">Gurgaon</a></li><li><a href="hyderabad.html">Hyderabad</a></li><li><a href="delhi.html">Delhi</a></li><li><a href="mumbai.html">Mumbai</a></li><li><a href="pune.html">Pune</a></li></ul></div>
+        <div class="footer-col"><h4>Explore with Ku</h4><ul><li><a href="kuone.html">Ku One</a></li><li><a href="kuinsta.html">Ku Instamart</a></li><li><a href="index.html">Ku Dineout</a></li><li><a href="kugenie.html">Ku Genie</a></li><li><a href="minis.html">Minis</a></li><li><a href="pyng.html">Pyng</a></li><li><a href="snackables.html">Snackables</a></li></ul></div>
+      </div>
+      <div class="cities-row"><span class="city-badge">47 cities</span><span class="city-badge">Life at Ku</span><span class="city-badge">Corporate</span></div>
+      <div class="legal-section"><div class="legal-links"><a href="#">Terms & Conditions</a><a href="#">Cookie Policy</a><a href="#">Privacy Policy</a></div><div class="social-icons"><span>📘</span><span>🐦</span><span>📸</span><span>🔗</span></div></div>
+      <div class="copyright">© 2026 Ku Dineout Limited. All rights reserved. <a href="#">Legal</a></div>
+    </div>
+  </footer>
+</div>
+
+<!-- Restaurant Selection Modal -->
+<div id="restoModal" class="modal-overlay">
+  <div class="modal-sheet">
+    <h3>Choose a Restaurant</h3>
+    <div class="resto-list" id="restoList"></div>
+    <div class="modal-close" id="closeModal">Cancel</div>
+  </div>
+</div>
+
+<div id="globalToast" class="toast-message">✨ Welcome to Ku Dineout</div>
+
+<script>
+  // Restaurant data
+  const restaurants = [
+    { id: 1, name: "The Grand Trunk", location: "Jubilee Hills, Hyderabad", rating: 4.5, cuisine: "North Indian", emoji: "🍕", priceRange: "₹₹₹" },
+    { id: 2, name: "Coastal Spice", location: "Banjara Hills, Hyderabad", rating: 4.7, cuisine: "Seafood", emoji: "🦐", priceRange: "₹₹₹" },
+    { id: 3, name: "The Royal Afghan", location: "Gachibowli, Hyderabad", rating: 4.6, cuisine: "Mughlai", emoji: "🍖", priceRange: "₹₹₹₹" },
+    { id: 4, name: "Olive Bistro", location: "Jubilee Hills, Hyderabad", rating: 4.8, cuisine: "Italian", emoji: "🍝", priceRange: "₹₹₹" },
+    { id: 5, name: "Barbeque Nation", location: "Hitech City, Hyderabad", rating: 4.4, cuisine: "BBQ", emoji: "🍢", priceRange: "₹₹" }
+  ];
+
+  let selectedRestaurant = restaurants[0];
+  let selectedDate = "";
+  let selectedTime = "8:00 PM";
+  let selectedGuests = "2";
+
+  // Generate dates (today + next 6 days)
+  function getDates() {
+    const dates = [];
+    const today = new Date();
+    for (let i = 0; i < 7; i++) {
+      const date = new Date(today);
+      date.setDate(today.getDate() + i);
+      const dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+      const day = dayNames[date.getDay()];
+      const month = date.getMonth() + 1;
+      const dateNum = date.getDate();
+      const formatted = `${day}, ${month}/${dateNum}`;
+      const value = `${date.getFullYear()}-${month}-${dateNum}`;
+      dates.push({ display: formatted, value: value, isToday: i === 0 });
+    }
+    return dates;
+  }
+
+  const dates = getDates();
+  selectedDate = dates[0].value;
+
+  // Time slots
+  const timeSlots = ["7:00 PM", "7:30 PM", "8:00 PM", "8:30 PM", "9:00 PM", "9:30 PM", "10:00 PM"];
+  
+  // Guest options
+  const guestOptions = ["1", "2", "3", "4", "5", "6", "7", "8+"];
+
+  // Render date selector
+  function renderDateSelector() {
+    const container = document.getElementById("dateSelector");
+    if (!container) return;
+    container.innerHTML = dates.map(date => `
+      <div class="date-option ${date.value === selectedDate ? 'selected' : ''}" data-date="${date.value}">
+        ${date.display}
+      </div>
+    `).join("");
+    
+    document.querySelectorAll(".date-option").forEach(opt => {
+      opt.addEventListener("click", () => {
+        selectedDate = opt.getAttribute("data-date");
+        renderDateSelector();
+        updateSummary();
+      });
+    });
+  }
+
+  // Render time selector
+  function renderTimeSelector() {
+    const container = document.getElementById("timeSelector");
+    if (!container) return;
+    container.innerHTML = timeSlots.map(time => `
+      <div class="time-option ${time === selectedTime ? 'selected' : ''}" data-time="${time}">
+        ${time}
+      </div>
+    `).join("");
+    
+    document.querySelectorAll(".time-option").forEach(opt => {
+      opt.addEventListener("click", () => {
+        selectedTime = opt.getAttribute("data-time");
+        renderTimeSelector();
+        updateSummary();
+      });
+    });
+  }
+
+  // Render guests selector
+  function renderGuestsSelector() {
+    const container = document.getElementById("guestsSelector");
+    if (!container) return;
+    container.innerHTML = guestOptions.map(guests => `
+      <div class="guest-option ${guests === selectedGuests ? 'selected' : ''}" data-guests="${guests}">
+        ${guests} ${guests === "1" ? "guest" : "guests"}
+      </div>
+    `).join("");
+    
+    document.querySelectorAll(".guest-option").forEach(opt => {
+      opt.addEventListener("click", () => {
+        selectedGuests = opt.getAttribute("data-guests");
+        renderGuestsSelector();
+        updateSummary();
+      });
+    });
+  }
+
+  // Update summary
+  function updateSummary() {
+    document.getElementById("summaryResto").innerText = selectedRestaurant.name;
+    const selectedDateObj = dates.find(d => d.value === selectedDate);
+    document.getElementById("summaryDate").innerText = selectedDateObj ? selectedDateObj.display : "Today";
+    document.getElementById("summaryTime").innerText = selectedTime;
+    document.getElementById("summaryGuests").innerText = `${selectedGuests} ${selectedGuests === "1" ? "guest" : "guests"}`;
+  }
+
+  // Update selected restaurant display
+  function updateRestaurantDisplay() {
+    document.getElementById("selectedRestoIcon").innerText = selectedRestaurant.emoji;
+    document.getElementById("selectedRestoName").innerText = selectedRestaurant.name;
+    document.getElementById("selectedRestoLoc").innerText = `${selectedRestaurant.location} • ${selectedRestaurant.rating} ⭐`;
+    updateSummary();
+  }
+
+  // Restaurant modal
+  const restoModal = document.getElementById("restoModal");
+  const restaurantSelector = document.getElementById("restaurantSelector");
+  const closeModal = document.getElementById("closeModal");
+
+  function renderRestoModal() {
+    const restoList = document.getElementById("restoList");
+    if (!restoList) return;
+    restoList.innerHTML = restaurants.map(resto => `
+      <div class="resto-option" data-resto-id="${resto.id}">
+        <div class="resto-option-emoji">${resto.emoji}</div>
+        <div class="resto-option-info">
+          <h4>${resto.name}</h4>
+          <p>${resto.location} • ${resto.cuisine} • ${resto.priceRange}</p>
+        </div>
+      </div>
+    `).join("");
+    
+    document.querySelectorAll(".resto-option").forEach(opt => {
+      opt.addEventListener("click", () => {
+        const id = parseInt(opt.getAttribute("data-resto-id"));
+        const newResto = restaurants.find(r => r.id === id);
+        if (newResto) {
+          selectedRestaurant = newResto;
+          updateRestaurantDisplay();
+        }
+        restoModal.style.display = "none";
+      });
+    });
+  }
+
+  restaurantSelector.addEventListener("click", () => {
+    renderRestoModal();
+    restoModal.style.display = "flex";
+  });
+
+  closeModal.addEventListener("click", () => {
+    restoModal.style.display = "none";
+  });
+
+  restoModal.addEventListener("click", (e) => {
+    if (e.target === restoModal) restoModal.style.display = "none";
+  });
+
+  // Toast helper
+  let toastTimeout = null;
+  function showMessage(text, duration = 2600) {
+    const toast = document.getElementById("globalToast");
+    toast.innerText = text;
+    toast.style.opacity = "1";
+    if (toastTimeout) clearTimeout(toastTimeout);
+    toastTimeout = setTimeout(() => { toast.style.opacity = "0"; }, duration);
+  }
+
+  // Confirm reservation
+  const confirmBtn = document.getElementById("confirmReserveBtn");
+  confirmBtn.addEventListener("click", () => {
+    const specialRequest = document.getElementById("specialRequest").value;
+    const dateDisplay = dates.find(d => d.value === selectedDate)?.display || "Today";
+    
+    showMessage(`🎉 Table reserved at ${selectedRestaurant.name} for ${selectedGuests} guest(s) on ${dateDisplay} at ${selectedTime}! Confirmation sent to your email.`, 3500);
+    
+    setTimeout(() => {
+      window.location.href = "index.html";
+    }, 2000);
+  });
+
+  // Location logic
+  let userLocation = null;
+  const locationTrigger = document.getElementById("locationTrigger");
+  const locationLabel = document.getElementById("locationLabel");
+  const locBadge = document.getElementById("locBadge");
+
+  function requestLocation() {
+    if ("geolocation" in navigator) {
+      navigator.geolocation.getCurrentPosition(
+        () => {
+          userLocation = { name: "📍 Hyderabad, Gachibowli" };
+          locationLabel.innerText = userLocation.name;
+          locBadge.innerText = "✓ Set";
+          locBadge.style.backgroundColor = "#e5f9ed";
+          locBadge.style.color = "#1e7b48";
+          showMessage(`Location set: ${userLocation.name}`);
+        },
+        () => manualLocationInput()
+      );
+    } else {
+      manualLocationInput();
+    }
+  }
+
+  function manualLocationInput() {
+    let userInput = prompt("Set your location for restaurant recommendations:", "Banjara Hills, Hyderabad");
+    if (userInput && userInput.trim()) {
+      userLocation = { name: `📍 ${userInput.trim()}` };
+      locationLabel.innerText = userLocation.name;
+      locBadge.innerText = "✓";
+      locBadge.style.backgroundColor = "#e5f9ed";
+      showMessage(`Location updated: ${userInput.trim()}`);
+    } else {
+      userLocation = { name: "Enter your delivery location" };
+      locationLabel.innerText = userLocation.name;
+      locBadge.innerText = "Tap";
+    }
+  }
+
+  locationTrigger.addEventListener("click", () => {
+    if (!userLocation) requestLocation();
+    else manualLocationInput();
+  });
+
+  // Navigation
+  const homeLink = document.getElementById("homeIconLink");
+  if (homeLink) homeLink.addEventListener("click", (e) => { e.preventDefault(); window.location.href = "index.html"; });
+  const profileLink = document.getElementById("profileIconLink");
+  if (profileLink) profileLink.addEventListener("click", (e) => { e.preventDefault(); window.location.href = "sign.html"; });
+
+  // Footer links
+  document.querySelectorAll('.footer-col a, .legal-links a, .city-badge, .social-icons span, .copyright a').forEach(el => {
+    el.addEventListener('click', (e) => {
+      const href = el.getAttribute('href');
+      if (href && (href === 'help.html' || href === 'careers.html' || href === 'team.html' || href === 'index.html' || href === 'news.html')) {
+        return;
+      }
+      e.preventDefault();
+      showMessage(`✨ ${el.innerText.trim()} — coming soon`, 1200);
+    });
+  });
+
+  // Initialize
+  renderDateSelector();
+  renderTimeSelector();
+  renderGuestsSelector();
+  updateRestaurantDisplay();
+
+  setTimeout(() => {
+    if (!userLocation) showMessage("📍 Set your location to see nearby restaurants", 2800);
+  }, 500);
+</script>
+</body>
+</html>
